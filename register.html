@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register</title>
+  <!-- Tambahkan Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tambahkan konfigurasi Tailwind khusus
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#0d3551',
+            'secondary': '#ff5722',
+            'hover-primary': '#133f63'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-primary font-sans m-0 p-0">
+  <div class="relative w-full h-screen flex items-center justify-between overflow-hidden">
+    <!-- Background diagonal -->
+    <div class="absolute top-0 left-[40%] w-full h-full bg-secondary transform -skew-x-12 origin-top-left z-0 md:block hidden"></div>
+
+    <!-- Bagian kiri dengan gambar -->
+    <div class="flex-1 flex justify-center items-center z-10 md:p-0 p-5">
+      <img src="media/Door-Person-removebg-preview.png" alt="Person Illustration" class="w-[70%] max-w-[400px] h-auto md:w-[70%] w-1/2">
+    </div>
+
+    <!-- Bagian kanan dengan form register -->
+    <div class="flex-1 flex justify-center items-center z-10 md:p-0 p-5">
+      <div class="bg-white p-10 rounded-lg shadow-lg w-[350px]">
+        <h2 class="text-center text-[22px] font-bold text-primary mb-8">REGISTER</h2>
+        <form id="registerForm">
+          <div class="relative mb-5">
+            <input 
+              type="text" 
+              id="regName" 
+              placeholder="Enter your name" 
+              required 
+              class="w-full py-[15px] px-[15px] border border-gray-300 rounded-md text-[15px] pr-12"
+            />
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[18px] text-gray-600">👤</span>
+          </div>
+          <div class="relative mb-5">
+            <input 
+              type="email" 
+              id="regEmail" 
+              placeholder="Enter your email" 
+              required 
+              class="w-full py-[15px] px-[15px] border border-gray-300 rounded-md text-[15px] pr-12"
+            />
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[18px] text-gray-600">📧</span>
+          </div>
+          <div class="relative mb-5">
+            <input 
+              type="password" 
+              id="regPassword" 
+              placeholder="Enter your password" 
+              required 
+              class="w-full py-[15px] px-[15px] border border-gray-300 rounded-md text-[15px] pr-12"
+            />
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[18px] text-gray-600">🔒</span>
+          </div>
+          <div class="relative mb-5">
+            <input 
+              type="password" 
+              id="regConfirmPassword" 
+              placeholder="Confirm password" 
+              required 
+              class="w-full py-[15px] px-[15px] border border-gray-300 rounded-md text-[15px] pr-12"
+            />
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[18px] text-gray-600">✅</span>
+          </div>
+          <button 
+            type="submit" 
+            class="w-full py-[15px] bg-primary text-white border-none rounded-md text-base font-bold cursor-pointer hover:bg-hover-primary transition-colors"
+          >
+            Register
+          </button>
+        </form>
+        <div class="text-center mt-4">
+          Already have an account? <a href="login.html" class="text-blue-600 hover:underline">click here!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("regName").value;
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+      const confirmPassword = document.getElementById("regConfirmPassword").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      localStorage.setItem("user_name", name);
+      localStorage.setItem("user_email", email);
+      localStorage.setItem("user_password", password);
+
+      alert("Registration successful! Redirecting to login...");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

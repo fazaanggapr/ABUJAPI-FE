@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kehadiran Karyawan</title>
+    <style>
+        :root {
+            --primary-blue: #003A5D;
+            --primary-light-blue: #70C1DA;
+            --accent-orange: #FF5C00;
+            --light-bg: #F5F9FC;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --success-green: #4CAF50;
+            --gray-light: #F0F8FF;
+            --gray: #E0E0E0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+        
+        /* Sidebar styling */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--white);
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            text-align: center;
+        }
+        
+        .profile-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .profile-info p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .sidebar-menu {
+            width: 100%;
+            padding: 0 10px;
+            margin-top: 20px;
+        }
+        
+        .menu-btn {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-btn:hover {
+            background-color: var(--gray-light);
+        }
+        
+        .logout-btn {
+            margin-top: auto;
+            padding: 20px;
+        }
+        
+        /* Main content styling */
+        .main-content {
+            flex: 1;
+            margin-left: 220px;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: var(--white);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .header-diagonal {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background-color: var(--primary-blue);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+        
+        .greeting {
+            z-index: 1;
+        }
+        
+        .greeting h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .greeting p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Calendar styling */
+        .calendar {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .calendar-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+        
+        .day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+        
+        .day-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .day-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .day.active .day-circle {
+            background-color: var(--accent-orange);
+        }
+        
+        /* Search box styling */
+        .search-container {
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .search-box {
+            display: flex;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .search-input {
+            padding: 8px 12px;
+            border: none;
+            outline: none;
+            width: 200px;
+        }
+        
+        .search-btn {
+            background-color: var(--white);
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+        
+        /* Table styling */
+        .table-container {
+            padding: 0 20px 20px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .data-table th {
+            background-color: var(--primary-light-blue);
+            color: var(--white);
+            text-align: left;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+        
+        .data-table tr:nth-child(odd) {
+            background-color: var(--white);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .badge-success {
+            background-color: var(--success-green);
+            color: var(--white);
+        }
+        
+        .action-btn {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            background-color: var(--primary-light-blue);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding-top: 10px;
+            }
+            
+            .profile-info, .menu-btn span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+            
+            .calendar {
+                flex-wrap: wrap;
+            }
+            
+            .day {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-img">
+                <img src="/media/OIP.jpg" alt="Profile Image">
+            </div>
+            <div class="profile-info">
+                <h3>Aditama Putra Yudha</h3>
+                <p>Direksi keamanan</p>
+            </div>
+        </div>
+        
+        <div class="sidebar-menu">
+            <button class="menu-btn">DATA KARYAWAN</button>
+            <button class="menu-btn">LAPORAN KEHADIRAN</button>
+            <button class="menu-btn">HASIL LAPORAN HARIAN</button>
+        </div>
+        
+        <div class="logout-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header with diagonal background -->
+        <div class="header">
+            <div class="greeting">
+                <h1>Hi, Bapak Aditama</h1>
+                <p>Mei 2025 ></p>
+            </div>
+            <div class="header-diagonal"></div>
+        </div>
+        
+        <!-- Calendar Section -->
+        <div class="calendar">
+            <div class="calendar-nav">
+                <button class="nav-btn">&lt;</button>
+                <button class="nav-btn">&gt;</button>
+            </div>
+            
+            <div class="day">
+                <div class="day-circle">25</div>
+                <div class="day-name">Senin</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-circle">26</div>
+                <div class="day-name">Selasa</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-circle">25</div>
+                <div class="day-name">Rabu</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-circle">25</div>
+                <div class="day-name">Kamis</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-circle">25</div>
+                <div class="day-name">Jumat</div>
+            </div>
+            
+            <div class="day active">
+                <div class="day-circle">25</div>
+                <div class="day-name">Sabtu</div>
+            </div>
+            
+            <div class="day">
+                <div class="day-circle">25</div>
+                <div class="day-name">Minggu</div>
+            </div>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Mencari...">
+                <button class="search-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 21L16.65 16.65" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Table Section -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Absensi</th>
+                        <th>Hasil laporan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>Inukai Atsuhiro</div>
+                            <div style="font-size: 12px; color: #666;">ID : 013</div>
+                        </td>
+                        <td><span class="badge badge-success">HADIR</span></td>
+                        <td><a href="#" class="action-btn">LIHAT LAPORAN</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

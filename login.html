@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <!-- Tambahkan Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tambahkan konfigurasi Tailwind khusus
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#0d3551',
+            'secondary': '#ff5722',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-primary font-sans m-0 p-0">
+  <div class="relative w-full h-screen flex items-center justify-between overflow-hidden">
+    <!-- Background diagonal -->
+    <div class="absolute top-0 left-[40%] w-full h-full bg-secondary transform -skew-x-12 origin-top-left z-0"></div>
+
+    <!-- Bagian kiri dengan gambar -->
+    <div class="flex-1 flex justify-center items-center z-10">
+      <img src="media/Door-Person-removebg-preview.png" alt="Person Illustration" class="w-[70%] max-w-[400px] h-auto">
+    </div>
+
+    <!-- Bagian kanan dengan form login -->
+    <div class="flex-1 flex justify-center items-center z-10">
+      <div class="bg-white p-10 rounded-lg shadow-lg w-[350px]">
+        <h2 class="text-center text-[22px] font-bold text-primary mb-8">ADMIN LOGIN</h2>
+        <form id="loginForm">
+          <div class="relative mb-5">
+            <input 
+              type="email" 
+              id="loginEmail" 
+              placeholder="Enter your email" 
+              required 
+              class="w-full py-[15px] px-[15px] border border-gray-300 rounded-md text-[15px] pr-12"
+            />
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[18px] text-gray-600">👤</span>
+          </div>
+          <div class="relative mb-5">
+            <input 
+              type="password" 
+              id="loginPassword" 
+              placeholder="Enter your password" 
+              required 
+              class="w-full py-[15px] px-[15px] border border-gray-300 rounded-md text-[15px] pr-12"
+            />
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[18px] text-gray-600">👁</span>
+          </div>
+          <button 
+            type="submit" 
+            class="w-full py-[15px] bg-primary text-white border-none rounded-md text-base font-bold cursor-pointer hover:bg-[#133f63] transition-colors"
+          >
+            Login
+          </button>
+        </form>
+        <div class="text-center mt-4">
+          Don't have an account? <a href="register.html" class="text-blue-600 hover:underline">click here!</a><br/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const storedEmail = localStorage.getItem("user_email");
+      const storedPassword = localStorage.getItem("user_password");
+
+      if (email === storedEmail && password === storedPassword) {
+        alert("Login successful!");
+        // Redirect to dashboard or homepage
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid email or password.");
+      }
+    });
+  </script>
+</body>
+</html>
