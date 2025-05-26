@@ -4,453 +4,333 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Kehadiran Karyawan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary-blue: #003A5D;
-            --primary-light-blue: #70C1DA;
-            --accent-orange: #FF5C00;
-            --light-bg: #F5F9FC;
-            --white: #ffffff;
-            --text-dark: #333333;
-            --success-green: #4CAF50;
-            --gray-light: #F0F8FF;
-            --gray: #E0E0E0;
+        .diagonal-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Ensure sidebar is properly positioned */
+        #sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
         }
         
-        body {
-            display: flex;
-            background-color: var(--light-bg);
-            color: var(--text-dark);
+        #sidebar.open {
+            transform: translateX(0);
         }
         
-        /* Sidebar styling */
-        .sidebar {
-            width: 220px;
-            height: 100vh;
-            background-color: var(--primary-blue);
-            color: var(--white);
-            position: fixed;
-            left: 0;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-        }
-        
-        .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .profile-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: var(--white);
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        
-        .profile-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .profile-info {
-            text-align: center;
-        }
-        
-        .profile-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-        
-        .profile-info p {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-        
-        .sidebar-menu {
-            width: 100%;
-            padding: 0 10px;
-            margin-top: 20px;
-        }
-        
-        .menu-btn {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            background-color: var(--white);
-            color: var(--primary-blue);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .menu-btn:hover {
-            background-color: var(--gray-light);
-        }
-        
-        .logout-btn {
-            margin-top: auto;
-            padding: 20px;
-        }
-        
-        /* Main content styling */
-        .main-content {
-            flex: 1;
-            margin-left: 220px;
-            padding: 0;
-        }
-        
-        .header {
-            background-color: var(--white);
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        
-        .header-diagonal {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 100%;
-            background-color: var(--primary-blue);
-            clip-path: polygon(100% 0, 0 0, 100% 100%);
-        }
-        
-        .greeting {
-            z-index: 1;
-        }
-        
-        .greeting h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .greeting p {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        /* Calendar styling */
-        .calendar {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-        }
-        
-        .calendar-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            transform: translateY(-50%);
-        }
-        
-        .nav-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--primary-blue);
-            cursor: pointer;
-        }
-        
-        .day {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 10px;
-        }
-        
-        .day-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-blue);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .day-name {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .day.active .day-circle {
-            background-color: var(--accent-orange);
-        }
-        
-        /* Search box styling */
-        .search-container {
-            padding: 20px;
-            display: flex;
-            justify-content: flex-start;
-        }
-        
-        .search-box {
-            display: flex;
-            border: 1px solid var(--gray);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .search-input {
-            padding: 8px 12px;
-            border: none;
-            outline: none;
-            width: 200px;
-        }
-        
-        .search-btn {
-            background-color: var(--white);
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-        }
-        
-        /* Table styling */
-        .table-container {
-            padding: 0 20px 20px;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .data-table th {
-            background-color: var(--primary-light-blue);
-            color: var(--white);
-            text-align: left;
-            padding: 15px 20px;
-            font-weight: 600;
-        }
-        
-        .data-table td {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .data-table tr:nth-child(even) {
-            background-color: var(--gray-light);
-        }
-        
-        .data-table tr:nth-child(odd) {
-            background-color: var(--white);
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-align: center;
-        }
-        
-        .badge-success {
-            background-color: var(--success-green);
-            color: var(--white);
-        }
-        
-        .action-btn {
-            display: inline-block;
-            padding: 6px 15px;
-            border-radius: 20px;
-            background-color: var(--primary-light-blue);
-            color: var(--white);
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            text-align: center;
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 60px;
-                padding-top: 10px;
-            }
-            
-            .profile-info, .menu-btn span {
-                display: none;
-            }
-            
-            .main-content {
-                margin-left: 60px;
-            }
-            
-            .calendar {
-                flex-wrap: wrap;
-            }
-            
-            .day {
-                margin: 5px;
+        @media (min-width: 1024px) {
+            #sidebar {
+                transform: translateX(0) !important;
             }
         }
     </style>
 </head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="profile">
-            <div class="profile-img">
-                <img src="/media/OIP.jpg" alt="Profile Image">
-            </div>
-            <div class="profile-info">
-                <h3>Aditama Putra Yudha</h3>
-                <p>Direksi keamanan</p>
-            </div>
-        </div>
-        
-        <div class="sidebar-menu">
-            <button class="menu-btn">DATA KARYAWAN</button>
-            <button class="menu-btn">LAPORAN KEHADIRAN</button>
-            <button class="menu-btn">HASIL LAPORAN HARIAN</button>
-        </div>
-        
-        <div class="logout-btn">
+<body class="bg-gray-50">
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden fixed top-4 left-4 z-50">
+        <button id="mobile-menu-btn" class="bg-blue-900 text-white p-2 rounded-lg shadow-lg">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 12H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 6H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-        </div>
+        </button>
     </div>
-    
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header with diagonal background -->
-        <div class="header">
-            <div class="greeting">
-                <h1>Hi, Bapak Aditama</h1>
-                <p>Mei 2025 ></p>
-            </div>
-            <div class="header-diagonal"></div>
-        </div>
-        
-        <!-- Calendar Section -->
-        <div class="calendar">
-            <div class="calendar-nav">
-                <button class="nav-btn">&lt;</button>
-                <button class="nav-btn">&gt;</button>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-blue-900 min-h-screen flex flex-col">
+            <!-- Close button for mobile -->
+            <div class="lg:hidden p-4 flex justify-end">
+                <button id="close-sidebar" class="text-white">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
             
-            <div class="day">
-                <div class="day-circle">25</div>
-                <div class="day-name">Senin</div>
+            <!-- Profile Section -->
+            <div class="p-4 lg:p-6 text-center">
+                <div class="w-12 h-12 lg:w-16 lg:h-16 mx-auto mb-4 rounded-full overflow-hidden bg-gray-300">
+                    <img src="/api/placeholder/64/64" alt="Profile Image" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-white font-semibold text-sm">Aditama Putra Yudha</h3>
+                <p class="text-blue-200 text-xs">Direksi keamanan</p>
             </div>
             
-            <div class="day">
-                <div class="day-circle">26</div>
-                <div class="day-name">Selasa</div>
+            <!-- Menu Section -->
+            <button onclick="window.location.href='/dashboard.html'"
+        class="w-full text-white py-3 px-4 rounded-lg font-semibold text-sm bg-blue-600 hover:bg-blue-800 transition-colors">
+    DASHBOARD ADMIN
+</button>
+                <button onclick="window.location.href='/datakaryawan.html'"
+        class="w-full text-white py-3 px-4 rounded-lg font-semibold text-sm bg-blue-600 hover:bg-blue-800 transition-colors">
+    DATA KARYAWAN
+</button>
+
+                <button class="w-full text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-blue-800 transition-colors">
+                    LAPORAN KEHADIRAN
+                </button>
+                <button class="w-full text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-blue-800 transition-colors">
+                    HASIL LAPORAN HARIAN
+                </button>
             </div>
             
-            <div class="day">
-                <div class="day-circle">25</div>
-                <div class="day-name">Rabu</div>
-            </div>
-            
-            <div class="day">
-                <div class="day-circle">25</div>
-                <div class="day-name">Kamis</div>
-            </div>
-            
-            <div class="day">
-                <div class="day-circle">25</div>
-                <div class="day-name">Jumat</div>
-            </div>
-            
-            <div class="day active">
-                <div class="day-circle">25</div>
-                <div class="day-name">Sabtu</div>
-            </div>
-            
-            <div class="day">
-                <div class="day-circle">25</div>
-                <div class="day-name">Minggu</div>
-            </div>
-        </div>
-        
-        <!-- Search Box -->
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="Mencari...">
-                <button class="search-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M21 21L16.65 16.65" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Logout Button -->
+            <div class="p-4">
+                <button class="w-full flex items-center justify-center py-3 text-white hover:bg-blue-800 transition-colors rounded-lg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
             </div>
         </div>
         
-        <!-- Table Section -->
-        <div class="table-container">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Absensi</th>
-                        <th>Hasil laporan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div>Inukai Atsuhiro</div>
-                            <div style="font-size: 12px; color: #666;">ID : 013</div>
-                        </td>
-                        <td><span class="badge badge-success">HADIR</span></td>
-                        <td><a href="#" class="action-btn">LIHAT LAPORAN</a></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Overlay for mobile -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 min-h-screen lg:ml-0">
+            <!-- Header with diagonal background -->
+            <div class="diagonal-bg h-24 md:h-32 px-4 md:px-8 flex items-center relative">
+                <div class="text-white z-10 pt-4 lg:pt-0">
+                    <h1 class="text-xl md:text-2xl font-bold">Hi, Bapak Aditama</h1>
+                    <p class="text-blue-100 text-sm md:text-base" id="current-date">Mei 2025 ></p>
+                </div>
+            </div>
+            
+            <!-- Calendar Section -->
+            <div class="px-4 md:px-8 py-4 md:py-6">     
+                <div class="flex space-x-2 md:space-x-4 mb-6 md:mb-8 justify-center overflow-x-auto pb-2" id="calendar-container">
+                    <button id="prev-week" class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow flex-shrink-0">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div id="calendar-days" class="flex space-x-2 md:space-x-4">
+                        <!-- Calendar days will be generated here -->
+                    </div>
+                    
+                    <button id="next-week" class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow flex-shrink-0">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Box -->
+            <div class="px-4 md:px-8 mb-4 md:mb-6">
+                <div class="relative max-w-md mx-auto lg:mx-0">
+                    <input type="text" class="w-full py-3 px-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base" placeholder="Mencari...">
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 p-1">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 21L16.65 16.65" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Table Section -->
+            <div class="px-4 md:px-8 pb-8">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <!-- Desktop Table -->
+                    <div class="hidden md:grid grid-cols-3">
+                        <!-- Table Header -->
+                        <div class="bg-blue-400 text-white py-4 px-6 font-semibold">Nama</div>
+                        <div class="bg-blue-400 text-white py-4 px-6 font-semibold">Absensi</div>
+                        <div class="bg-blue-400 text-white py-4 px-6 font-semibold">Hasil laporan</div>
+                        
+                        <!-- Table Row 1 -->
+                        <div class="py-6 px-6 border-b border-gray-100 bg-white">
+                            <div class="font-semibold text-gray-900">Inukai Atsuhiro</div>
+                            <div class="text-sm text-blue-500 mt-1">ID : 013</div>
+                        </div>
+                        <div class="py-6 px-6 border-b border-gray-100 bg-white flex items-center">
+                            <span class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold">HADIR</span>
+                        </div>
+                        <div class="py-6 px-6 border-b border-gray-100 bg-white flex items-center">
+                            <button class="bg-blue-500 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors">LIHAT LAPORAN</button>
+                        </div>
+                        
+                        <!-- Empty Rows -->
+                        <div class="py-8 px-6 border-b border-gray-100 bg-blue-50"></div>
+                        <div class="py-8 px-6 border-b border-gray-100 bg-blue-50"></div>
+                        <div class="py-8 px-6 border-b border-gray-100 bg-blue-50"></div>
+                        
+                        <div class="py-8 px-6 border-b border-gray-100 bg-white"></div>
+                        <div class="py-8 px-6 border-b border-gray-100 bg-white"></div>
+                        <div class="py-8 px-6 border-b border-gray-100 bg-white"></div>
+                        
+                        <div class="py-8 px-6 border-b border-gray-100 bg-blue-50"></div>
+                        <div class="py-8 px-6 border-b border-gray-100 bg-blue-50"></div>
+                        <div class="py-8 px-6 border-b border-gray-100 bg-blue-50"></div>
+                    </div>
+                    
+                    <!-- Mobile Cards -->
+                    <div class="md:hidden">
+                        <!-- Header -->
+                        <div class="bg-blue-400 text-white py-4 px-4 font-semibold text-center">
+                            Data Karyawan
+                        </div>
+                        
+                        <!-- Employee Card -->
+                        <div class="p-4 border-b border-gray-100 bg-white">
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="font-semibold text-gray-900">Inukai Atsuhiro</div>
+                                    <div class="text-sm text-blue-500">ID : 013</div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-sm text-gray-600">Status:</span>
+                                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold ml-2">HADIR</span>
+                                    </div>
+                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 transition-colors">LIHAT LAPORAN</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Empty Cards -->
+                        <div class="py-8 px-4 border-b border-gray-100 bg-blue-50"></div>
+                        <div class="py-8 px-4 border-b border-gray-100 bg-white"></div>
+                        <div class="py-8 px-4 border-b border-gray-100 bg-blue-50"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeSidebarMenu() {
+            sidebar.classList.remove('open');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        mobileMenuBtn.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarMenu);
+        overlay.addEventListener('click', closeSidebarMenu);
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth < 1024) {
+                if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains('open')) {
+                    closeSidebarMenu();
+                }
+            }
+        });
+
+        // Dynamic calendar functionality
+        let currentWeekStart = new Date();
+        
+        // Get Monday of current week
+        function getMondayOfWeek(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
+            return new Date(d.setDate(diff));
+        }
+
+        function formatDate(date) {
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            return `${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function generateCalendarWeek(startDate) {
+            const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+            const calendarDays = document.getElementById('calendar-days');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            calendarDays.innerHTML = '';
+            
+            for (let i = 0; i < 7; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                const isToday = currentDate.getTime() === today.getTime();
+                const isWeekend = i === 5 || i === 6; // Saturday or Sunday
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'flex flex-col items-center flex-shrink-0';
+                
+                let bgColor = 'bg-blue-500';
+                let textColor = 'text-white';
+                let dayTextColor = 'text-gray-600';
+                let dayFontWeight = '';
+                
+                if (isToday) {
+                    bgColor = 'bg-red-500';
+                    dayTextColor = 'text-gray-900';
+                    dayFontWeight = 'font-semibold';
+                }
+                
+                dayElement.innerHTML = `
+                    <div class="w-10 h-10 md:w-12 md:h-12 ${bgColor} ${textColor} rounded-full flex items-center justify-center font-semibold mb-2 text-sm md:text-base">
+                        ${currentDate.getDate()}
+                    </div>
+                    <span class="text-xs md:text-sm ${dayTextColor} ${dayFontWeight}">${days[i]}</span>
+                `;
+                
+                calendarDays.appendChild(dayElement);
+            }
+            
+            // Update header date
+            document.getElementById('current-date').textContent = `${formatDate(startDate)} >`;
+        }
+
+        function initializeCalendar() {
+            currentWeekStart = getMondayOfWeek(new Date());
+            generateCalendarWeek(currentWeekStart);
+        }
+
+        function goToPreviousWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            generateCalendarWeek(currentWeekStart);
+        }
+
+        function goToNextWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            generateCalendarWeek(currentWeekStart);
+        }
+
+        // Event listeners for calendar navigation
+        document.getElementById('prev-week').addEventListener('click', goToPreviousWeek);
+        document.getElementById('next-week').addEventListener('click', goToNextWeek);
+
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', initializeCalendar);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                closeSidebarMenu();
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 </body>
 </html>

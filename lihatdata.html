@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Bunga Amalya Putri Patria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-blue': '#1e3a8a',
+                        'teal-dark': '#0f766e',
+                        'teal-light': '#5eead4'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-4xl mx-auto bg-white min-h-screen">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-900 to-teal-700 text-white p-4 relative">
+            <div class="flex items-center gap-3">
+                <button class="text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <h1 class="text-xl font-semibold">Kembali</h1>
+            </div>
+            <div class="absolute top-0 right-0 w-32 h-16 bg-gradient-to-l from-blue-800 to-transparent transform skew-x-12"></div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="flex bg-white border-b">
+            <button id="tab-pribadi" class="flex-1 py-3 px-4 bg-sky-400 text-white font-medium text-sm">
+                DATA PRIBADI
+            </button>
+            <button id="tab-pekerjaan" class="flex-1 py-3 px-4 bg-sky-600 text-white font-medium text-sm">
+                DATA PEKERJAAN
+            </button>
+        </div>
+
+        <!-- Content Container -->
+        <div class="p-4 space-y-6">
+            
+            <!-- Data Pribadi Tab -->
+            <div id="content-pribadi" class="space-y-6">
+                <!-- Profile Card -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                    <div class="flex gap-4">
+                        <div class="w-24 h-32 bg-blue-600 rounded-lg overflow-hidden flex-shrink-0">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Crect width='100' height='120' fill='%233b82f6'/%3E%3Ccircle cx='50' cy='35' r='15' fill='white'/%3E%3Cpath d='M25 85 Q25 65 50 65 Q75 65 75 85 L75 120 L25 120 Z' fill='white'/%3E%3C/svg%3E" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="text-lg font-bold text-gray-900 mb-2">Jean Kirstein</h2>
+                            <div class="space-y-1 text-sm">
+                                <div class="flex">
+                                    <span class="w-8 text-black">NIK</span>
+                                    <span class="ml-2 text-gray-700">1234567890123456</span>
+                                </div>
+                                <div class="flex">
+                                    <span class="w-8 text-black">No KTP</span>
+                                    <span class="ml-2 text-gray-700">3603 3671 4321</span>
+                                </div>
+                                <div class="flex">
+                                    <span class="w-8 text-black">Email:</span>
+                                    <span class="ml-2 text-gray-700">bunga@email.app</span>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="text-xs text-gray-500">Gender: </span>
+                                <span class="text-xs font-medium">L</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID Card -->
+                <div class="bg-gradient-to-r from-sky-700 to-sky-600 rounded-lg p-4 text-white text-xs">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <div class="text-yellow-300 font-bold">Anggota</div>
+                            <div class="space-y-1 mt-2">
+                                <div>Dinas/Instansi: </div>
+                                <div>Bagian: </div>
+                                <div>Jabatan: </div>
+                                <div>Umur: 25</div>
+                                <div>Tinggi Badan: 160 cm</div>
+                                <div>Berat Badan: 50 kg</div>
+                                <div>Asal Berat: </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="w-16 h-16 bg-gray-300 rounded mb-2 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="text-xs">Sidik Jari</div>
+                            <div class="text-xs mt-1">BCA ***********</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riwayat Kerja & Keahlian -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Riwayat Kerja -->
+                    <div class="bg-sky-700 rounded-lg p-4 text-white">
+                        <h3 class="font-bold text-sm mb-3 text-center">Riwayat kerja</h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex items-start gap-2">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-1 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-semibold">PT. Teknologi Industri</div>
+                                    <div class="text-gray-300">Software Engineer</div>
+                                    <div class="text-gray-300">2020-2022</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-1 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-semibold">PT. Teknologi Nusantara</div>
+                                    <div class="text-gray-300">Frontend Developer</div>
+                                    <div class="text-gray-300">2018-2020</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-1 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-semibold">PT. Teknologi Kreatif</div>
+                                    <div class="text-gray-300">Web Developer</div>
+                                    <div class="text-gray-300">2016-2018</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keahlian -->
+                    <div class="bg-sky-700 rounded-lg p-4 text-white">
+                        <h3 class="font-bold text-sm mb-3 text-center">Keahlian</h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex items-start gap-2">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-1 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-semibold">Keahlian Fisik</div>
+                                    <div class="text-gray-300">Kemampuan fisik yang baik</div>
+                                    <div class="text-gray-300">Tahan lama</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-1 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-semibold">Keahlian Fisik</div>
+                                    <div class="text-gray-300">Kemampuan fisik yang baik</div>
+                                    <div class="text-gray-300">Tahan lama</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-1 flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-semibold">Keahlian Lainnya</div>
+                                    <div class="text-gray-300">Programming</div>
+                                    <div class="text-gray-300">Database Management</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sertifikat -->
+                <div class="bg-sky-700 rounded-lg p-4 text-white">
+                    <h3 class="font-bold text-sm mb-3 text-center">Sertifikat</h3>
+                    <div class="flex justify-between items-center text-xs">
+                        <div class="text-center">
+                            <div class="text-orange-500 font-bold text-lg">1</div>
+                            <div>Sertifikat Wajib</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-orange-500 font-bold text-lg">0</div>
+                            <div>Sertifikat Mulia</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-orange-500 font-bold text-lg">0</div>
+                            <div>Sertifikat Utama</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-orange-500 font-bold text-lg">0</div>
+                            <div>Sertifikat Madya</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Pekerjaan Tab -->
+            <div id="content-pekerjaan" class="space-y-4 hidden">
+                <div class="space-y-4">
+                    <!-- Status Karyawan -->
+                    <div>
+                        <label class="block text-sm font-medium text-white bg-sky-700 px-3 py-2 rounded-t">Status karyawan :</label>
+                        <input type="text" value="Aktif" class="w-full p-3 border border-gray-300 rounded-b bg-gray-50" readonly>
+                    </div>
+
+                    <!-- Jabatan -->
+                    <div>
+                        <label class="block text-sm font-medium text-white bg-sky-700 px-3 py-2 rounded-t">Jabatan :</label>
+                        <input type="text" value="Karyawan" class="w-full p-3 border border-gray-300 rounded-b bg-gray-50" readonly>
+                    </div>
+
+                    <!-- Lama Bekerja -->
+                    <div>
+                        <label class="block text-sm font-medium text-white bg-sky-700 px-3 py-2 rounded-t">Lama bekerja :</label>
+                        <input type="text" value="5 Tahun" class="w-full p-3 border border-gray-300 rounded-b bg-gray-50" readonly>
+                    </div>
+
+                    <!-- Lokasi Penempatan -->
+                    <div>
+                        <label class="block text-sm font-medium text-white bg-sky-700 px-3 py-2 rounded-t">Lokasi penempatan :</label>
+                        <input type="text" value="Jakarta" class="w-full p-3 border border-gray-300 rounded-b bg-gray-50" readonly>
+                    </div>
+
+                    <!-- Link Portfolio -->
+                    <div class="bg-sky-700 rounded-lg p-4">
+                        <h3 class="text-white font-medium text-center mb-3">Link portofolio</h3>
+                        <div class="bg-white rounded p-3 text-center">
+                            <span class="text-sm text-gray-700">portofolio-bunga-setpam-keren.vercel.app</span>
+                        </div>
+                    </div>
+
+                    <!-- Tambah Tugas -->
+                    <div class="bg-sky-300 rounded-lg p-4 text-center">
+                        <h3 class="font-bold text-teal-800">TAMBAH TUGAS</h3>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4">
+                        <button class="flex-1 bg-orange-500 text-white py-3 px-4 rounded font-medium">
+                            EDIT DATA
+                        </button>
+                        <button class="flex-1 bg-red-700 text-white py-3 px-4 rounded font-medium">
+                            HAPUS DATA
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabPribadi = document.getElementById('tab-pribadi');
+        const tabPekerjaan = document.getElementById('tab-pekerjaan');
+        const contentPribadi = document.getElementById('content-pribadi');
+        const contentPekerjaan = document.getElementById('content-pekerjaan');
+
+        tabPribadi.addEventListener('click', () => {
+            tabPribadi.classList.add('bg-sky-700');
+            tabPribadi.classList.remove('bg-sky-600');
+            tabPekerjaan.classList.add('bg-sky-600');
+            tabPekerjaan.classList.remove('bg-sky-700');
+            
+            contentPribadi.classList.remove('hidden');
+            contentPekerjaan.classList.add('hidden');
+        });
+
+        tabPekerjaan.addEventListener('click', () => {
+            tabPekerjaan.classList.add('bg-sky-700');
+            tabPekerjaan.classList.remove('bg-sky-600');
+            tabPribadi.classList.add('bg-sky-600');
+            tabPribadi.classList.remove('bg-sky-700');
+            
+            contentPekerjaan.classList.remove('hidden');
+            contentPribadi.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
