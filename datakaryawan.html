@@ -135,13 +135,13 @@
       50% { opacity: 0.5; }
     }
     
-    /* Status badges */
-    .status-active {
+    /* Absensi badges */
+    .Absensi-active {
       background-color: #10b981;
       color: white;
     }
     
-    .status-inactive {
+    .Absensi-inactive {
       background-color: #ef4444;
       color: white;
     }
@@ -200,13 +200,13 @@
       
       <!-- Menu Section -->
       <div class="flex-1 p-4 space-y-3">
-        <button onclick="navigateTo('dashboard')"
-          class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>DASHBOARD ADMIN</span>
-        </button>
+        <a href="dashboard.html"
+   class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3 block">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+   </svg>
+   <span>DASHBOARD ADMIN</span>
+</a>
         
         <button onclick="navigateTo('datakaryawan')"
           class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm bg-blue-600 hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3">
@@ -215,26 +215,6 @@
             <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span>DATA KARYAWAN</span>
-        </button>
-
-        <button onclick="navigateTo('laporan')"
-          class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>LAPORAN KEHADIRAN</span>
-        </button>
-        
-        <button onclick="navigateTo('hasil')"
-          class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 11H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 3H18C18.5304 3 19.0391 3.21071 19.4142 3.58579C19.7893 3.96086 20 4.46957 20 5V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21H6C5.46957 21 4.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="7" y="1" width="6" height="4" rx="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>HASIL LAPORAN HARIAN</span>
         </button>
       </div>
       
@@ -260,7 +240,7 @@
       <div class="p-4 lg:p-8 relative z-10">
         <!-- Header -->
         <div class="mb-8">
-          <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">DATA KARYAWAN</h1>
+          <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Data Karyawan</h1>
           <p class="text-gray-600">Kelola data karyawan perusahaan</p>
         </div>
 
@@ -298,59 +278,12 @@
           </div>
         </div>
 
-        <!-- Statistics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="flex items-center">
-              <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-600">Total Karyawan</p>
-                <p id="totalEmployees" class="text-2xl font-bold text-gray-900">8</p>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="flex items-center">
-              <div class="p-3 rounded-full bg-green-100 text-green-600">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-600">Aktif</p>
-                <p id="activeEmployees" class="text-2xl font-bold text-gray-900">7</p>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="flex items-center">
-              <div class="p-3 rounded-full bg-red-100 text-red-600">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-600">Non-Aktif</p>
-                <p id="inactiveEmployees" class="text-2xl font-bold text-gray-900">1</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Employee Table -->
         <div class="bg-white rounded-lg shadow-sm overflow-hidden">
           <div class="table-header grid grid-cols-1 md:grid-cols-5 text-white font-semibold">
             <div class="py-4 px-6 text-center">Nama</div>
             <div class="py-4 px-6 text-center">Lokasi</div>
-            <div class="py-4 px-6 text-center">Status</div>
+            <div class="py-4 px-6 text-center">Absensi</div>
             <div class="py-4 px-6 text-center">Aksi</div>
           </div>
           <div id="employeeTable" class="divide-y divide-gray-100">
@@ -419,11 +352,11 @@
         </div>
         <div>
 <div class="mb-6">
-  <label for="employeeStatus" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-  <select id="employeeStatus" name="status" required
+  <label for="employeeAbsensi" class="block text-sm font-medium text-gray-700 mb-2">Absensi</label>
+  <select id="employeeAbsensi" name="Absensi" required
     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-    <option value="active">Aktif</option>
-    <option value="inactive">Non-Aktif</option>
+    <option value="active">Hadir</option>
+    <option value="inactive">Tidak Hadir</option>
   </select>
 </div>
 
@@ -473,7 +406,7 @@
         location: 'Bekasi',
         phone: '08123456789',
         email: 'inukai@company.com',
-        status: 'active',
+        Absensi: 'active',
         joinDate: '2023-01-15'
       },
       {
@@ -482,7 +415,7 @@
         location: 'Jakarta',
         phone: '08145678901',
         email: 'lisa.hartono@company.com',
-        status: 'inactive',
+        Absensi: 'inactive',
         joinDate: '2023-06-18'
       }
     ];
@@ -619,9 +552,9 @@
           </div>
           <div class="px-6 text-center hidden md:block">
             <span class="px-3 py-1 rounded-full text-xs font-semibold ${
-              employee.status === 'active' ? 'status-active' : 'status-inactive'
+              employee.Absensi === 'active' ? 'Absensi-active' : 'Absensi-inactive'
             }">
-              ${employee.status === 'active' ? 'Aktif' : 'Non-Aktif'}
+              ${employee.Absensi === 'active' ? 'Hadir' : 'Tidak Hadir'}
             </span>
           </div>
 <div class="px-6 text-center">
@@ -656,7 +589,7 @@
     // Statistics
     function updateStatistics() {
       const total = employees.length;
-      const active = employees.filter(emp => emp.status === 'active').length;
+      const active = employees.filter(emp => emp.Absensi === 'active').length;
       const inactive = total - active;
 
       document.getElementById('totalEmployees').textContent = total;
@@ -731,7 +664,7 @@
       document.getElementById('employeeLocation').value = employee.location;
       document.getElementById('employeePhone').value = employee.phone || '';
       document.getElementById('employeeEmail').value = employee.email || '';
-      document.getElementById('employeeStatus').value = employee.status;
+      document.getElementById('employeeAbsensi').value = employee.Absensi;
 
       employeeModal.classList.add('show');
       document.body.style.overflow = 'hidden';
@@ -781,11 +714,11 @@
               <p class="mt-1 text-lg text-gray-900">${employee.email || '-'}</p>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-600">Status</label>
+              <label class="block text-sm font-medium text-gray-600">Absensi</label>
               <span class="mt-1 inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                employee.status === 'active' ? 'status-active' : 'status-inactive'
+                employee.Absensi === 'active' ? 'Absensi-active' : 'Absensi-inactive'
               }">
-                ${employee.status === 'active' ? 'Aktif' : 'Non-Aktif'}
+                ${employee.Absensi === 'active' ? 'Hadir' : 'Tidak Hadir'}
               </span>
             </div>
             <div>
@@ -821,7 +754,7 @@
         location: formData.get('location'),
         phone: formData.get('phone'),
         email: formData.get('email'),
-        status: formData.get('status'),
+        Absensi: formData.get('Absensi'),
         joinDate: editingEmployeeId ? 
           employees.find(emp => emp.id === editingEmployeeId).joinDate : 
           new Date().toISOString().split('T')[0]
