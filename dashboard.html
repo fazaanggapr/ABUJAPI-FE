@@ -3,690 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Dashboard Karyawan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* Sidebar Transitions */
-        #sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            backdrop-filter: blur(20px);
-        }
-        
-        #sidebar.open {
-            transform: translateX(0);
-        }
-        
-        /* Desktop sidebar always visible */
-        @media (min-width: 1024px) {
-            #sidebar {
-                transform: translateX(0) !important;
-                position: relative !important;
-            }
-            #mobile-menu-btn {
-                display: none !important;
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sidebar-blue': '#1e3a8a',
+                        'sidebar-dark': '#1e2742'
+                    }
+                }
             }
         }
-        
-        /* Overlay */
-        #overlay {
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            opacity: 0;
-            backdrop-filter: blur(8px);
-        }
-        
-        #overlay.show {
-            opacity: 1;
-        }
-        
-        /* Enhanced Button Effects */
-        .btn-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-hover:hover::before {
-            left: 100%;
-        }
-        
-        .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4), 0 8px 10px -6px rgba(14, 165, 233, 0.3);
-        }
-        
-        .focus-ring:focus {
-            outline: 2px solid #0ea5e9;
-            outline-offset: 2px;
-        }
-        
-        /* Glass morphism effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Gradient animations */
-        .animated-gradient {
-            background: linear-gradient(-45deg, #1e40af, #3b82f6, #0ea5e9, #06b6d4);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Enhanced shadows */
-        .shadow-elegant {
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
-        }
-        
-        .shadow-card {
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .shadow-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #0ea5e9, #3b82f6);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #0284c7, #2563eb);
-        }
-        
-        /* Pulse animation for stats */
-        .pulse-gentle {
-            animation: pulseGentle 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulseGentle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Loading skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        /* Improved mobile responsiveness */
-        @media (max-width: 768px) {
-            .mobile-spacing {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        }
-    </style>
+    </script>
 </head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-x-hidden min-h-screen">
-    <!-- Mobile Menu Button -->
-    <div class="lg:hidden fixed top-4 left-4 z-50">
-        <button id="mobile-menu-btn" class="animated-gradient text-white p-3 rounded-2xl shadow-elegant btn-hover focus-ring">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12H21" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                <path d="M3 6H21" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                <path d="M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </button>
-    </div>
-
-    <div class="flex min-h-screen">
+<body class="bg-gray-50 font-sans">
+    <div class="flex h-screen">
         <!-- Sidebar -->
-        <div id="sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-72 animated-gradient min-h-screen flex flex-col shadow-2xl lg:shadow-elegant">
-            <!-- Close button for mobile -->
-            <div class="lg:hidden p-6 flex justify-between items-center">
-                <h2 class="text-white font-bold text-xl">Menu</h2>
-                <button id="close-sidebar" class="text-white p-2 rounded-xl hover:bg-white/20 transition-all focus-ring">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Professional Profile Section -->
-            <div class="p-8 text-center border-b border-white/20">
-                <div class="w-20 h-20 lg:w-24 lg:h-24 mx-auto mb-6 rounded-full overflow-hidden glass shadow-elegant">
-                    <div class="w-full h-full bg-gradient-to-br from-white/30 to-white/10 flex items-center justify-center backdrop-blur-sm">
-                        <span class="text-white font-bold text-2xl lg:text-3xl">AP</span>
-                    </div>
-                </div>
-                <h3 class="text-white font-bold text-lg lg:text-xl mb-1">Aditama Putra Yudha</h3>
-                <p class="text-blue-100 text-sm font-medium">Direksi Keamanan</p>
-                <div class="mt-4 px-4 py-2 bg-white/20 rounded-full backdrop-blur-sm">
-                    <span class="text-white text-xs font-semibold">Administrator</span>
-                </div>
-            </div>
-
-            <!-- Enhanced Menu Section -->
-            <div class="flex-1 p-6 space-y-4">
-                <button onclick="window.location.href='/dashboard.html'" class="w-full text-left text-white py-4 px-6 rounded-2xl font-bold text-sm bg-white/20 hover:bg-white/30 transition-all btn-hover focus-ring flex items-center space-x-4 backdrop-blur-sm">
-                    <div class="p-2 bg-white/20 rounded-xl">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <span>DASHBOARD ADMIN</span>
-                </button>
-
-                <button onclick="window.location.href='/datakaryawan.html'" class="w-full text-left text-white py-4 px-6 rounded-2xl font-bold text-sm hover:bg-white/20 transition-all btn-hover focus-ring flex items-center space-x-4">
-                    <div class="p-2 bg-white/10 rounded-xl">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <span>DATA KARYAWAN</span>
-                </button>
+        <div class="w-64 bg-gradient-to-b from-blue-900 to-slate-800 text-white flex flex-col relative">
+            <!-- Decorative header shape -->
+            <div class="absolute top-0 right-0 w-32 h-32">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-white bg-opacity-10 transform rotate-45 translate-x-6 -translate-y-6"></div>
+                <div class="absolute top-4 right-4 w-16 h-16 bg-white bg-opacity-10 transform rotate-45 translate-x-4 -translate-y-4"></div>
             </div>
             
-            <!-- Enhanced Logout Button -->
-            <div class="p-6 border-t border-white/20">
-                <button class="w-full flex items-center justify-center py-4 px-6 text-white hover:bg-red-500 bg-red-600/80 transition-all rounded-2xl btn-hover focus-ring space-x-3 backdrop-blur-sm font-bold">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>KELUAR</span>
+            <!-- Profile Section -->
+            <div class="p-6 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full overflow-hidden border-2 border-white shadow-lg">
+                        <div class="w-full h-full bg-gray-400 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-600 text-lg"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">Aditama Putra Yudha</h3>
+                        <p class="text-xs text-blue-200">Kepala Satpam</p>
+                    </div>
+                </div>
+            </div>
+            
+<!-- Navigation -->
+<nav class="flex-1 px-4 mt-4">
+    <ul class="space-y-3">
+        <li>
+            <a href="dashboard.html"
+               class="w-full block rounded-lg px-4 py-3 text-sm font-semibold flex items-center justify-center transition-colors
+               bg-white text-slate-800 shadow-md hover:bg-gray-100">
+                <i class="fas fa-chart-line mr-2"></i>
+                DASHBOARD
+            </a>
+        </li>
+        <li>
+            <a href="datakaryawan.html"
+               class="w-full block rounded-lg px-4 py-3 text-sm font-medium flex items-center justify-center transition-colors
+               text-blue-100 hover:bg-white hover:bg-opacity-10">
+                <i class="fas fa-users mr-2"></i>
+                DATA KARYAWAN
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+            
+            <!-- Logout Button -->
+            <div class="p-4">
+                <a href="login.html">
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-3 text-sm font-semibold transition-colors flex items-center justify-center shadow-md">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    LOGOUT
                 </button>
+                </a>
             </div>
         </div>
 
-        <!-- Overlay -->
-        <div id="overlay" class="fixed inset-0 bg-black/40 z-30 lg:hidden hidden"></div>
-
         <!-- Main Content -->
-        <div class="flex-1 relative lg:ml-0 min-h-screen">
-            <!-- Enhanced Decorative elements -->
-            <div class="absolute top-0 right-0 w-96 h-32 bg-gradient-to-l from-blue-600/20 to-transparent transform skew-y-1 origin-top-right"></div>
-            <div class="absolute top-0 right-0 w-64 h-24 bg-gradient-to-l from-indigo-500/30 to-transparent transform -skew-y-1 origin-top-right"></div>
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <div class="bg-white p-6 border-b border-gray-200 shadow-sm">
+                <h1 class="text-2xl font-bold text-gray-800">Hi, Bapak Aditama</h1>
+                <p class="text-gray-500 text-sm mt-1 flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span id="currentMonth">Juni 2025</span> >
+                </p>
+            </div>
 
-            <div class="p-6 lg:p-10 relative z-10">
-                <!-- Professional Header -->
-                <div class="mb-10">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-elegant">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Dashboard Admin</h1>
-                            <p class="text-gray-600 font-medium">Kelola data dashboard admin dengan mudah dan efisien</p>
-                        </div>
+            <!-- Calendar Week View -->
+            <div class="p-6">
+                <div class="flex items-center justify-center mb-8">
+                    <button class="p-3 hover:bg-gray-100 rounded-full transition-colors" onclick="navigateWeek(-1)">
+                        <i class="fas fa-chevron-left text-gray-500 text-lg"></i>
+                    </button>
+                    
+                    <div class="flex space-x-4 mx-8" id="weekCalendar">
+                        <!-- Calendar will be generated by JavaScript -->
                     </div>
+                    
+                    <button class="p-3 hover:bg-gray-100 rounded-full transition-colors" onclick="navigateWeek(1)">
+                        <i class="fas fa-chevron-right text-gray-500 text-lg"></i>
+                    </button>
                 </div>
 
-                <!-- Enhanced Search & Filter Section -->
-                <div class="glass rounded-2xl shadow-elegant p-8 mb-8 border">
-                    <div class="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
-                        <div class="flex-1 w-full lg:max-w-md">
-                            <label class="block text-sm font-semibold text-gray-700 mb-3">Pencarian Karyawan</label>
-                            <div class="relative">
-                                <input type="text" id="searchInput" placeholder="Cari nama atau ID karyawan..." class="w-full py-4 px-6 pr-14 border-2 border-sky-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-sky-200 focus:border-sky-500 transition-all font-medium bg-white/80 backdrop-blur-sm">
-                                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 text-sky-500 hover:text-sky-600 transition-colors">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 w-full lg:w-auto">
-                            <button id="addEmployeeBtn" class="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white px-8 py-4 rounded-2xl font-bold transition-all btn-hover btn-primary focus-ring whitespace-nowrap shadow-elegant">
-                                <div class="flex items-center space-x-3">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-                                        <rect x="7" y="7" width="10" height="10" rx="1" ry="1" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Generate QR Code</span>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Enhanced Statistics Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                    <div class="glass rounded-2xl shadow-card p-8 border hover:scale-105 transition-transform">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-elegant">
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2"/>
-                                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="ml-6">
-                                    <p class="text-sm font-bold text-gray-600 mb-1">Total Karyawan</p>
-                                    <p id="totalEmployees" class="text-3xl font-bold text-gray-900 pulse-gentle">8</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass rounded-2xl shadow-card p-8 border hover:scale-105 transition-transform">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="p-4 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-elegant">
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="ml-6">
-                                    <p class="text-sm font-bold text-gray-600 mb-1">Aktif</p>
-                                    <p id="activeEmployees" class="text-3xl font-bold text-gray-900 pulse-gentle">7</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass rounded-2xl shadow-card p-8 border hover:scale-105 transition-transform">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="p-4 rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-elegant">
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="ml-6">
-                                    <p class="text-sm font-bold text-gray-600 mb-1">Non-Aktif</p>
-                                    <p id="inactiveEmployees" class="text-3xl font-bold text-gray-900 pulse-gentle">1</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Enhanced Employee Table -->
-                <div class="glass rounded-3xl shadow-elegant overflow-hidden border">
-                    <!-- Desktop Table -->
-                    <div class="hidden md:block">
-                        <div class="grid grid-cols-3">
-                            <!-- Enhanced Table Header -->
-                            <div class="animated-gradient text-white py-8 px-8 font-bold text-xl text-center">
-                                <div class="flex items-center justify-center space-x-3">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2"/>
-                                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Nama Karyawan</span>
-                                </div>
-                            </div>
-                            <div class="animated-gradient text-white py-8 px-8 font-bold text-xl text-center">
-                                <div class="flex items-center justify-center space-x-3">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Laporan Kehadiran</span>
-                                </div>
-                            </div>
-                            <div class="animated-gradient text-white py-8 px-8 font-bold text-xl text-center">
-                                <div class="flex items-center justify-center space-x-3">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2"/>
-                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Laporan Harian</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Table Body -->
-                        <div id="desktopEmployeeTable" class="divide-y divide-gray-100">
-                            <!-- Employee rows will be populated by JavaScript -->
-                        </div>
-                    </div>
-
-                    <!-- Enhanced Mobile Cards -->
-                    <div class="md:hidden">
-                        <!-- Header -->
-                        <div class="animated-gradient text-white py-8 px-6 font-bold text-center text-xl">
-                            <div class="flex items-center justify-center space-x-3">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2"/>
-                                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                <span>Data Karyawan</span>
-                            </div>
-                        </div>
-
-                        <!-- Mobile Employee Cards -->
-                        <div id="mobileEmployeeTable">
-                            <!-- Employee cards will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Enhanced Pagination -->
-                <div class="mt-8 flex items-center justify-between glass rounded-2xl p-6 shadow-elegant border">
-                    <div class="text-sm font-semibold text-gray-700">
-                        Menampilkan <span id="showingStart" class="font-bold text-blue-600">1</span> - <span id="showingEnd" class="font-bold text-blue-600">3</span> dari <span id="totalCount" class="font-bold text-blue-600">8</span> karyawan
-                    </div>
-                    <div class="flex space-x-3">
-                        <button id="prevPage" class="px-6 py-3 text-sm font-bold text-gray-600 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed focus-ring transition-all btn-hover shadow-card">
-                            ← Sebelumnya
-                        </button>
-                        <button id="nextPage" class="px-6 py-3 text-sm font-bold text-gray-600 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed focus-ring transition-all btn-hover shadow-card">
-                            Selanjutnya →
+                <!-- Search and QR Code Section -->
+                <div class="flex space-x-4 mb-6">
+                    <div class="flex-1 relative">
+                        <input 
+                            type="text" 
+                            placeholder="Mencari..." 
+                            class="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                            id="searchInput"
+                        >
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded">
+                            <i class="fas fa-search text-gray-400"></i>
                         </button>
                     </div>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-md flex items-center">
+                        <i class="fas fa-qrcode mr-2"></i>
+                        GENERATE CODE QR
+                    </button>
                 </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+    <table class="w-full">
+        <thead>
+            <tr class="bg-gradient-to-r from-cyan-200 to-blue-200">
+                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                    <i class="fas fa-user mr-2"></i>Nama
+                </th>
+                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
+                    <i class="fas fa-clock mr-2"></i>Absensi
+                </th>
+                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
+                    <i class="fas fa-file-alt mr-2"></i>Hasil laporan
+                </th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100" id="employeeTableBody">
+            <!-- Data akan dimuat di sini -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+<div class="mt-6 flex items-center justify-between">
+    <div class="text-sm text-gray-600">
+        Menampilkan <span id="showingStart">1</span>-<span id="showingEnd">5</span> dari <span id="totalRecords">0</span> data
+    </div>
+    <div class="flex items-center space-x-2">
+        <button id="prevBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="previousPage()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="pageNumbers" class="flex space-x-1">
+            <!-- Page numbers akan dimuat di sini -->
+        </div>
+        <button id="nextBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="nextPage()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Employee data
-        const employees = [
-            { id: '013', name: 'Inukai Atsuhiro', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '014', name: 'Tanaka Hiroshi', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '015', name: 'Sato Yuki', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '016', name: 'Suzuki Mei', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '017', name: 'Watanabe Ken', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '018', name: 'Yamamoto Aoi', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '019', name: 'Kobayashi Rin', attendanceLink: '..html', dailyLink: 'laporan.html' },
-            { id: '020', name: 'Ito Haruto', attendanceLink: '..html', dailyLink: 'laporan.html' }
-        ];
+        // Data karyawan dengan absensi
+const employees = [
+    { id: '019', name: 'Inukai Atsuhiro', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
+    { id: '022', name: 'Yamada Akiko', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+    { id: '020', name: 'Sato Yuki', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
+    { id: '022', name: 'Akiko Takeshi', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+    { id: '023', name: 'Yuki Kato', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
+    { id: '021', name: 'Atsuhiro Yamada', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
+    { id: '024', name: 'Inukai Kamshimida', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
+    { id: '025', name: 'Yamada Honda', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+    { id: '026', name: 'Sato Suzuki', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
+];
 
-        // Pagination variables
-        let currentPage = 1;
-        const itemsPerPage = 3;
-        const totalPages = Math.ceil(employees.length / itemsPerPage);
+let currentPage = 1;
+const itemsPerPage = 3;
+const totalPages = Math.ceil(employees.length / itemsPerPage);
 
-        // Enhanced render desktop table
-        function renderDesktopTable(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const currentEmployees = employees.slice(start, end);
-            
-            const desktopTable = document.getElementById('desktopEmployeeTable');
-            desktopTable.innerHTML = '';
+// Get status icon
+function getStatusIcon(status) {
+    switch (status) {
+        case 'HADIR':
+            return 'fa-check-circle';
+        case 'TIDAK HADIR':
+            return 'fa-times-circle';
+        case 'IZIN':
+            return 'fa-exclamation-circle';
+        default:
+            return 'fa-question-circle';
+    }
+}
 
-            currentEmployees.forEach((employee, index) => {
-                const row = document.createElement('div');
-                row.className = 'grid grid-cols-3 hover:bg-blue-50/50 transition-all duration-300';
-                row.style.animationDelay = `${index * 100}ms`;
-                row.innerHTML = `
-                    <div class="py-8 px-8 border-b border-gray-100 bg-white/80 backdrop-blur-sm hover:bg-blue-50/80 transition-all duration-300">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold shadow-elegant">
-                                ${employee.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                            </div>
-                            <div>
-                                <div class="font-bold text-gray-900 text-lg mb-1">${employee.name}</div>
-                                <div class="text-sm text-blue-600 font-semibold bg-blue-100 px-3 py-1 rounded-full inline-block">ID: ${employee.id}</div>
-                            </div>
-                        </div>
+function renderTable() {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentEmployees = employees.slice(startIndex, endIndex);
+
+    const tableBody = document.getElementById('employeeTableBody');
+    tableBody.innerHTML = '';
+
+    currentEmployees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-50 transition-colors';
+        row.innerHTML = `
+            <td class="px-6 py-5">
+                <div>
+                    <div class="font-semibold text-gray-900">${employee.name}</div>
+                    <div class="text-sm text-gray-500 flex items-center mt-1">
+                        <i class="fas fa-id-badge mr-1"></i>
+                        ${employee.id}
                     </div>
-                    <div class="py-8 px-8 border-b border-gray-100 bg-white/80 backdrop-blur-sm hover:bg-blue-50/80 transition-all duration-300 flex items-center justify-center">
-                        <a href="${employee.attendanceLink}" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-2xl text-sm font-bold transition-all shadow-elegant btn-hover focus-ring group">
-                            <div class="flex items-center space-x-3">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="group-hover:scale-110 transition-transform">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                <span>LIHAT LAPORAN KEHADIRAN</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="py-8 px-8 border-b border-gray-100 bg-white/80 backdrop-blur-sm hover:bg-blue-50/80 transition-all duration-300 flex items-center justify-center">
-                        <a href="${employee.dailyLink}" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-2xl text-sm font-bold transition-all shadow-elegant btn-hover focus-ring group">
-                            <div class="flex items-center space-x-3">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="group-hover:scale-110 transition-transform">
-                                    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2"/>
-                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                <span>LIHAT LAPORAN HARIAN</span>
-                            </div>
-                        </a>
-                    </div>
-                `;
-                desktopTable.appendChild(row);
-            });
+                </div>
+            </td>
+            <td class="px-6 py-5 text-center">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${employee.statusClass} border">
+                    <i class="fas ${getStatusIcon(employee.status)} mr-1"></i>
+                    ${employee.status}
+                </span>
+            </td>
+            <td class="px-6 py-5 text-center">
+                <a href="/laporan.html">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors shadow-md flex items-center mx-auto">
+                        <i class="fas fa-eye mr-1"></i>
+                        LIHAT LAPORAN
+                    </button>
+                </a>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+
+    // Tambahkan baris kosong jika jumlah kurang dari itemsPerPage
+    const remainingRows = itemsPerPage - currentEmployees.length;
+    for (let i = 0; i < remainingRows; i++) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.className = 'h-16 hover:bg-gray-50 transition-colors';
+        emptyRow.innerHTML = `
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+        `;
+        tableBody.appendChild(emptyRow);
+    }
+
+    updatePaginationInfo();
+    updatePaginationButtons();
+}
+
+function updatePaginationInfo() {
+    const startIndex = (currentPage - 1) * itemsPerPage + 1;
+    const endIndex = Math.min(currentPage * itemsPerPage, employees.length);
+
+    document.getElementById('showingStart').textContent = startIndex;
+    document.getElementById('showingEnd').textContent = endIndex;
+    document.getElementById('totalRecords').textContent = employees.length;
+}
+
+function updatePaginationButtons() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+
+    const pageNumbers = document.getElementById('pageNumbers');
+    pageNumbers.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `pagination-btn px-3 py-2 rounded-lg text-sm font-medium ${
+            i === currentPage 
+                ? 'bg-blue-500 text-white' 
+                : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+        }`;
+        pageBtn.textContent = i;
+        pageBtn.onclick = () => goToPage(i);
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+function previousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+    }
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+    }
+}
+
+function goToPage(page) {
+    currentPage = page;
+    renderTable();
+}
+
+// Initialize table
+renderTable();
+
+ // Calendar functionality
+        let currentWeekStart = new Date();
+        
+        // Set to current date (June 18, 2025 - Wednesday)
+        const today = new Date(2025, 5, 18); // June 18, 2025 (Wednesday)
+        currentWeekStart = getWeekStart(today);
+        
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
+            return new Date(d.setDate(diff));
         }
-
-        // Enhanced render mobile table
-        function renderMobileTable(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const currentEmployees = employees.slice(start, end);
+        
+        function formatDate(date) {
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                           'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
             
-            const mobileTable = document.getElementById('mobileEmployeeTable');
-            mobileTable.innerHTML = '';
-
-            currentEmployees.forEach((employee, index) => {
-                const card = document.createElement('div');
-                card.className = 'p-6 border-b border-gray-100 bg-white/90 backdrop-blur-sm hover:bg-blue-50/80 transition-all duration-300';
-                card.style.animationDelay = `${index * 100}ms`;
-                card.innerHTML = `
-                    <div class="space-y-6">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-elegant">
-                                ${employee.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                            </div>
-                            <div class="flex-1">
-                                <div class="font-bold text-gray-900 text-lg mb-2">${employee.name}</div>
-                                <div class="text-sm text-blue-600 font-semibold bg-blue-100 px-3 py-1 rounded-full inline-block">ID: ${employee.id}</div>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <a href="${employee.attendanceLink}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-4 rounded-2xl text-sm font-bold transition-all shadow-elegant btn-hover focus-ring text-center group">
-                                <div class="flex items-center justify-center space-x-3">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="group-hover:scale-110 transition-transform">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>HASIL LAPORAN KEHADIRAN</span>
-                                </div>
-                            </a>
-                            <a href="${employee.dailyLink}" class="block w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-4 rounded-2xl text-sm font-bold transition-all shadow-elegant btn-hover focus-ring text-center group">
-                                <div class="flex items-center justify-center space-x-3">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="group-hover:scale-110 transition-transform">
-                                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2"/>
-                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
-                                        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>HASIL LAPORAN HARIAN</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                `;
-                mobileTable.appendChild(card);
-            });
+            return {
+                day: days[date.getDay()],
+                date: date.getDate(),
+                month: months[date.getMonth()],
+                year: date.getFullYear(),
+                isToday: date.toDateString() === today.toDateString()
+            };
         }
-
-        // Update pagination info
-        function updatePagination() {
-            const start = (currentPage - 1) * itemsPerPage + 1;
-            const end = Math.min(currentPage * itemsPerPage, employees.length);
+        
+        function generateCalendar() {
+            const calendar = document.getElementById('weekCalendar');
+            calendar.innerHTML = '';
             
-            document.getElementById('showingStart').textContent = start;
-            document.getElementById('showingEnd').textContent = end;
-            document.getElementById('totalCount').textContent = employees.length;
-            
-            const prevBtn = document.getElementById('prevPage');
-            const nextBtn = document.getElementById('nextPage');
-            
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-            
-            // Enhanced button states
-            if (currentPage === 1) {
-                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-            
-            if (currentPage === totalPages) {
-                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        }
-
-        // Render page with animations
-        function renderPage(page) {
-            currentPage = page;
-            
-            // Add loading animation
-            const desktopTable = document.getElementById('desktopEmployeeTable');
-            const mobileTable = document.getElementById('mobileEmployeeTable');
-            
-            desktopTable.style.opacity = '0.5';
-            mobileTable.style.opacity = '0.5';
-            
-            setTimeout(() => {
-                renderDesktopTable(page);
-                renderMobileTable(page);
-                updatePagination();
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(currentWeekStart.getDate() + i);
+                const dateInfo = formatDate(date);
                 
-                desktopTable.style.opacity = '1';
-                mobileTable.style.opacity = '1';
-            }, 150);
+                const dayElement = document.createElement('div');
+                dayElement.className = 'text-center cursor-pointer hover:scale-105 transition-transform';
+                
+                // Determine circle color - Orange for today, Blue for others
+                let circleColor = 'bg-blue-600';
+                if (dateInfo.isToday) {
+                    circleColor = 'bg-orange-500';
+                }
+                
+                dayElement.innerHTML = `
+                    <div class="w-14 h-14 ${circleColor} text-white rounded-full flex items-center justify-center font-bold mb-2 shadow-lg">
+                        ${dateInfo.date}
+                    </div>
+                    <span class="text-xs text-gray-600 font-medium">${dateInfo.day}</span>
+                `;
+                
+                calendar.appendChild(dayElement);
+            }
+            
+            // Update month display
+            const monthDisplay = document.getElementById('currentMonth');
+            const monthInfo = formatDate(currentWeekStart);
+            monthDisplay.textContent = `${monthInfo.month} ${monthInfo.year}`;
         }
-
-        // Enhanced sidebar functionality
-        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-        const sidebar = document.getElementById("sidebar");
-        const closeSidebar = document.getElementById("close-sidebar");
-        const overlay = document.getElementById("overlay");
-
-        function openSidebar() {
-            sidebar.classList.add("open");
-            overlay.classList.remove("hidden");
-            overlay.classList.add("show");
-            document.body.style.overflow = "hidden";
+        
+        function navigateWeek(direction) {
+            currentWeekStart.setDate(currentWeekStart.getDate() + (direction * 7));
+            generateCalendar();
         }
-
-        function closeSidebarMenu() {
-            sidebar.classList.remove("open");
-            overlay.classList.remove("show");
-            setTimeout(() => {
-                overlay.classList.add("hidden");
-            }, 300);
-            document.body.style.overflow = "";
-        }
-
-        // Enhanced event listeners
-        mobileMenuBtn.addEventListener("click", openSidebar);
-        closeSidebar.addEventListener("click", closeSidebarMenu);
-        overlay.addEventListener("click", closeSidebarMenu);
-
-        document.getElementById('prevPage').addEventListener('click', () => {
-            if (currentPage > 1) {
-                renderPage(currentPage - 1);
-            }
+        
+        // Initialize calendar
+        generateCalendar();
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            console.log('Searching for:', searchTerm);
+            // Implement search logic here
         });
-
-        document.getElementById('nextPage').addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                renderPage(currentPage + 1);
-            }
+        
+        // QR Code generation
+        document.querySelector('button:has(.fa-qrcode)').addEventListener('click', function() {
+            alert('Fitur Generate QR Code akan diimplementasikan di sini');
         });
-
-        // Enhanced search functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            // Add search logic here if needed
-            console.log('Searching for:', query);
-        });
-
-        // Escape key to close sidebar
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && sidebar.classList.contains("open")) {
-                closeSidebarMenu();
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener("resize", () => {
-            if (window.innerWidth >= 1024) {
-                closeSidebarMenu();
-            }
-        });
-
-        // Smooth scroll behavior
-        document.documentElement.style.scrollBehavior = 'smooth';
-
-        // Initial render with animation
-        setTimeout(() => {
-            renderPage(1);
-        }, 100);
-
-        // Add loading states and micro-interactions
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add entrance animations
-            const elements = document.querySelectorAll('.glass, .shadow-card');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    el.style.transition = 'all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)';
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, index * 100);
+        
+        // Navigation interactions
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active state from all buttons
+                document.querySelectorAll('nav button').forEach(btn => {
+                    btn.classList.remove('bg-white', 'text-slate-800');
+                    btn.classList.add('text-blue-100', 'hover:bg-white', 'hover:bg-opacity-10');
+                });
+                
+                // Add active state to clicked button
+                this.classList.add('bg-white', 'text-slate-800');
+                this.classList.remove('text-blue-100', 'hover:bg-white', 'hover:bg-opacity-10');
             });
+        });
+        
+        // Logout functionality
+        document.querySelector('button:has(.fa-sign-out-alt)').addEventListener('click', function() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                alert('Logout berhasil! Anda akan diarahkan ke halaman login.');
+                // Implementasi logout logic di sini
+            }
         });
     </script>
 </body>

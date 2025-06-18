@@ -1,843 +1,378 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Karyawan</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .diagonal-bg {
-      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-    }
-    
-    /* Improved sidebar positioning and transitions */
-    #sidebar {
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-      will-change: transform;
-    }
-    
-    #sidebar.open {
-      transform: translateX(0);
-    }
-    
-    /* Desktop sidebar always visible */
-    @media (min-width: 1024px) {
-      #sidebar {
-        transform: translateX(0) !important;
-        position: relative !important;
-      }
-      
-      #mobile-menu-btn {
-        display: none !important;
-      }
-    }
-    
-    /* Smooth overlay transition */
-    #overlay {
-      transition: opacity 0.3s ease-in-out;
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    #overlay.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
-    /* Improved scroll behavior */
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none;
-    }
-    
-    /* Better focus states */
-    .focus-ring:focus {
-      outline: 2px solid #3b82f6;
-      outline-offset: 2px;
-    }
-    
-    /* Better button hover states */
-    .btn-hover {
-      transition: all 0.2s ease-in-out;
-    }
-    
-    .btn-hover:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    
-    /* Table header gradient */
-    .table-header {
-      background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
-    }
-    
-    /* Modal styles */
-    .modal {
-      display: none;
-      animation: fadeIn 0.3s ease-out;
-    }
-    
-    .modal.show {
-      display: flex;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes slideUp {
-      from { 
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .modal-content {
-      animation: slideUp 0.3s ease-out;
-    }
-    
-    /* Improved responsive table */
-    @media (max-width: 768px) {
-      .table-responsive {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-      
-      .table-row {
-        display: flex;
-        min-width: 600px;
-      }
-      
-      .table-cell {
-        flex: 1;
-        min-width: 150px;
-      }
-    }
-    
-    /* Loading animation */
-    .loading {
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    
-    /* Absensi badges */
-    .Absensi-active {
-      background-color: #10b981;
-      color: white;
-    }
-    
-    .Absensi-inactive {
-      background-color: #ef4444;
-      color: white;
-    }
-    
-    /* Safe area for mobile devices */
-    @supports (padding: max(0px)) {
-      .safe-area-top {
-        padding-top: max(1rem, env(safe-area-inset-top));
-      }
-      
-      .safe-area-left {
-        padding-left: max(1rem, env(safe-area-inset-left));
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Karyawan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sidebar-blue': '#1e3a8a',
+                        'sidebar-dark': '#1e2742'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 overflow-x-hidden">
-  <!-- Mobile Menu Button -->
-  <div class="lg:hidden fixed top-4 left-4 z-50 safe-area-top safe-area-left">
-    <button id="mobile-menu-btn" class="bg-blue-900 text-white p-3 rounded-xl shadow-lg btn-hover focus-ring">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 12H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M3 6H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  </div>
+<body class="bg-gray-50 font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gradient-to-b from-blue-900 to-slate-800 text-white flex flex-col relative">
+            <!-- Decorative header shape -->
+            <div class="absolute top-0 right-0 w-32 h-32">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-white bg-opacity-10 transform rotate-45 translate-x-6 -translate-y-6"></div>
+                <div class="absolute top-4 right-4 w-16 h-16 bg-white bg-opacity-10 transform rotate-45 translate-x-4 -translate-y-4"></div>
+            </div>
+            
+            <!-- Profile Section -->
+            <div class="p-6 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full overflow-hidden border-2 border-white shadow-lg">
+                        <div class="w-full h-full bg-gray-400 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-600 text-lg"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">Aditama Putra Yudha</h3>
+                        <p class="text-xs text-blue-200">Kepala Satpam</p>
+                    </div>
+                </div>
+            </div>
+            
+<!-- Navigation -->
+<nav class="flex-1 px-4 mt-4">
+    <ul class="space-y-3">
+        <li>
+            <a href="dashboard.html"
+               class="w-full block rounded-lg px-4 py-3 text-sm font-medium flex items-center justify-center transition-colors
+               text-blue-100 hover:bg-white hover:bg-opacity-10">
+                <i class="fas fa-chart-line mr-2"></i>
+                DASHBOARD
+            </a>
+        </li>
+        <li>
+            <a href="datakaryawan.html"
+               class="w-full block rounded-lg px-4 py-3 text-sm font-semibold flex items-center justify-center transition-colors
+               bg-white text-slate-800 shadow-md hover:bg-gray-100">
+                <i class="fas fa-users mr-2"></i>
+                DATA KARYAWAN
+            </a>
+        </li>
+    </ul>
+</nav>
 
-  <!-- Overlay for mobile -->
-  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"></div>
 
-  <div class="flex min-h-screen">
-    <!-- Sidebar -->
-    <div id="sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 bg-blue-900 min-h-screen flex flex-col shadow-2xl lg:shadow-none">
-      <!-- Close button for mobile -->
-      <div class="lg:hidden p-4 flex justify-between items-center">
-        <h2 class="text-white font-semibold text-lg">Menu</h2>
-        <button id="close-sidebar" class="text-white p-2 rounded-lg hover:bg-blue-800 transition-colors focus-ring">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-      
-      <!-- Profile Section -->
-      <div class="p-6 text-center border-b border-blue-800">
-        <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-4 rounded-full overflow-hidden bg-gray-300 shadow-lg">
-          <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-            <span class="text-white font-bold text-xl lg:text-2xl">AP</span>
-          </div>
-        </div>
-        <h3 class="text-white font-semibold text-base lg:text-lg">Aditama Putra Yudha</h3>
-        <p class="text-blue-200 text-sm">Direksi Keamanan</p>
-      </div>
-      
-      <!-- Menu Section -->
-      <div class="flex-1 p-4 space-y-3">
-        <a href="dashboard.html"
-   class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3 block">
-   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-     <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-   </svg>
-   <span>DASHBOARD ADMIN</span>
-</a>
-        
-        <button onclick="navigateTo('datakaryawan')"
-          class="w-full text-left text-white py-4 px-6 rounded-xl font-semibold text-sm bg-blue-600 hover:bg-blue-700 transition-colors btn-hover focus-ring flex items-center space-x-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>DATA KARYAWAN</span>
-        </button>
-      </div>
-      
-      <!-- Logout Button -->
-      <div class="p-4 border-t border-blue-800">
-        <button onclick="logout()" class="w-full flex items-center justify-center py-4 px-6 text-white hover:bg-red-600 bg-red-500 transition-colors rounded-xl btn-hover focus-ring space-x-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="font-semibold">KELUAR</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="flex-1 bg-gray-50 relative lg:ml-0">
-      <!-- Decorative elements -->
-      <div class="absolute top-0 right-0 w-48 h-24 bg-blue-900 transform skew-x-12 origin-top-right opacity-80"></div>
-      <div class="absolute top-0 right-12 w-32 h-20 bg-blue-800 transform skew-x-12 origin-top-right opacity-60"></div>
-
-      <div class="p-4 lg:p-8 relative z-10">
-        <!-- Header -->
-        <div class="mb-8">
-          <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Data Karyawan</h1>
-          <p class="text-gray-600">Kelola data karyawan perusahaan</p>
-        </div>
-
-        <!-- Search & Filter Section -->
-        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            <div class="flex-1 w-full lg:max-w-md">
-              <div class="relative">
-                <input 
-                  type="text" 
-                  id="searchInput"
-                  placeholder="Cari nama atau ID karyawan..." 
-                  class="w-full py-3 px-4 pr-12 border-2 border-sky-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                >
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 p-1">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21 21L16.65 16.65" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+            
+            <!-- Logout Button -->
+            <div class="p-4">
+                <a href="login.html">
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-3 text-sm font-semibold transition-colors flex items-center justify-center shadow-md" onclick="logout()">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    LOGOUT
                 </button>
-              </div>
+                </a>
             </div>
-            <div class="flex gap-3 w-full lg:w-auto">
-              <select id="locationFilter" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500">
-                <option value="">Semua Lokasi</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Bekasi">Bekasi</option>
-                <option value="Bandung">Bandung</option>
-                <option value="Surabaya">Surabaya</option>
-              </select>
-              <button id="addEmployeeBtn" class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors btn-hover focus-ring whitespace-nowrap">
-                TAMBAH DATA
-              </button>
-            </div>
-          </div>
         </div>
 
-        <!-- Employee Table -->
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div class="table-header grid grid-cols-1 md:grid-cols-5 text-white font-semibold">
-            <div class="py-4 px-6 text-center">Nama</div>
-            <div class="py-4 px-6 text-center">Lokasi</div>
-            <div class="py-4 px-6 text-center">Absensi</div>
-            <div class="py-4 px-6 text-center">Aksi</div>
-          </div>
-          <div id="employeeTable" class="divide-y divide-gray-100">
-            <!-- Employee rows will be populated by JavaScript -->
-          </div>
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <div class="bg-white p-6 border-b border-gray-200 shadow-sm">
+                <h1 class="text-3xl font-bold text-gray-800">DATA KARYAWAN</h1>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+                <!-- Search and Add Data Section -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center space-x-4">
+                        <label class="text-gray-700 font-medium">Sortir berdasarkan :</label>
+                        <div class="flex items-center space-x-2">
+                            <input 
+                                type="text" 
+                                placeholder="Cari karyawan..." 
+                                class="px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
+                                id="sortInput"
+                            >
+                            <button class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" onclick="searchEmployee()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+                 <!-- Employee Table -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gradient-to-r from-cyan-200 to-blue-200">
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 w-1/4">
+                            <i class="fas fa-user mr-2"></i>Nama
+                        </th>
+                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 w-1/4">
+                            <i class="fas fa-map-marker-alt mr-2"></i>Lokasi
+                        </th>
+                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 w-1/4">
+                            <i class="fas fa-cogs mr-2"></i>Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100" id="employeeTableBody">
+                    <!-- Data akan dimuat di sini -->
+                </tbody>
+            </table>
         </div>
 
         <!-- Pagination -->
         <div class="mt-6 flex items-center justify-between">
-          <div class="text-sm text-gray-700">
-            Menampilkan <span id="showingStart">1</span> - <span id="showingEnd">8</span> dari <span id="totalCount">8</span> karyawan
-          </div>
-          <div class="flex space-x-2">
-            <button id="prevPage" class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-              Sebelumnya
-            </button>
-            <button id="nextPage" class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-              Selanjutnya
-            </button>
-          </div>
+            <div class="text-sm text-gray-600">
+                Menampilkan <span id="showingStart">1</span>-<span id="showingEnd">5</span> dari <span id="totalRecords">0</span> data
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="prevBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="previousPage()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div id="pageNumbers" class="flex space-x-1">
+                    <!-- Page numbers akan dimuat di sini -->
+                </div>
+                <button id="nextBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="nextPage()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Add/Edit Employee Modal -->
-  <div id="employeeModal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 z-50 items-center justify-center p-4">
-    <div class="modal-content bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between p-6 border-b">
-        <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Tambah Karyawan Baru</h3>
-        <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus-ring rounded-lg p-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-      <form id="employeeForm" class="p-6 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="employeeName" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-            <input type="text" id="employeeName" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-          </div>
-          <div>
-            <label for="employeeId" class="block text-sm font-medium text-gray-700 mb-2">ID Karyawan</label>
-            <input type="text" id="employeeId" name="id" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-          </div>
-          <div>
-            <label for="employeeLocation" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-            <select id="employeeLocation" name="location" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-              <option value="">Pilih Lokasi</option>
-              <option value="Jakarta">Jakarta</option>
-              <option value="Bekasi">Bekasi</option>
-              <option value="Bandung">Bandung</option>
-              <option value="Surabaya">Surabaya</option>
-            </select>
-          </div>
-          <div>
-            <label for="employeePhone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
-            <input type="tel" id="employeePhone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-          </div>
-          <div>
-            <label for="employeeEmail" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-            <input type="email" id="employeeEmail" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-          </div>
+            </div>
         </div>
-        <div>
-<div class="mb-6">
-  <label for="employeeAbsensi" class="block text-sm font-medium text-gray-700 mb-2">Absensi</label>
-  <select id="employeeAbsensi" name="Absensi" required
-    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
-    <option value="active">Hadir</option>
-    <option value="inactive">Tidak Hadir</option>
-  </select>
-</div>
-
-<!-- Tombol aksi -->
-<div class="flex flex-col sm:flex-row gap-4 border-t pt-6">
-  <!-- Tombol Batal -->
-  <button type="button" id="cancelBtn"
-    class="w-full sm:w-auto px-5 py-3 text-sm font-semibold text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
-    Batal
-  </button>
-
-  <!-- Tombol Simpan -->
-  <button type="submit"
-    class="w-full sm:w-auto px-5 py-3 text-sm font-semibold text-white bg-sky-500 rounded-lg hover:bg-sky-600 transition-colors">
-    Simpan
-  </button>
-</div>
-
-      </form>
     </div>
-  </div>
 
-  <!-- Employee Detail Modal -->
-  <div id="detailModal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 z-50 items-center justify-center p-4">
-    <div class="modal-content bg-white rounded-lg shadow-xl max-w-2xl w-full">
-      <div class="flex items-center justify-between p-6 border-b">
-        <h3 class="text-lg font-semibold text-gray-900">Detail Karyawan</h3>
-        <button id="closeDetailModal" class="text-gray-400 hover:text-gray-600 focus-ring rounded-lg p-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-      <div id="employeeDetail" class="p-6">
-        <!-- Employee details will be populated by JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Sample employee data
-    let employees = [
-      {
-        id: '013',
-        name: 'Inukai Atsuhiro',
-        location: 'Bekasi',
-        phone: '08123456789',
-        email: 'inukai@company.com',
-        Absensi: 'active',
-        joinDate: '2023-01-15'
-      },
-      {
-        id: '018',
-        name: 'Lisa Hartono',
-        location: 'Jakarta',
-        phone: '08145678901',
-        email: 'lisa.hartono@company.com',
-        Absensi: 'inactive',
-        joinDate: '2023-06-18'
-      }
+<script>
+    // Sample data karyawan
+    const employees = [
+        { id: '019', name: 'Inukai Atsuhiro', location: 'Bekasi' },
+        { id: '020', name: 'Tanaka Hiroshi', location: 'Jakarta' },
+        { id: '021', name: 'Sato Kenji', location: 'Bandung' },
+        { id: '022', name: 'Yamada Takeshi', location: 'Surabaya' },
+        { id: '023', name: 'Suzuki Akira', location: 'Medan' },
+        { id: '024', name: 'Watanabe Yuki', location: 'Yogyakarta' },
+        { id: '025', name: 'Ito Makoto', location: 'Semarang' },
+        { id: '026', name: 'Kobayashi Ryu', location: 'Malang' },
+        { id: '027', name: 'Nakamura Shin', location: 'Denpasar' }
     ];
 
-    let filteredEmployees = [...employees];
     let currentPage = 1;
-    let itemsPerPage = 10;
-    let editingEmployeeId = null;
+    const itemsPerPage = 3;
+    const totalPages = Math.ceil(employees.length / itemsPerPage);
 
-    // DOM Elements
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const closeSidebarBtn = document.getElementById('close-sidebar');
-    const searchInput = document.getElementById('searchInput');
-    const locationFilter = document.getElementById('locationFilter');
-    const employeeTable = document.getElementById('employeeTable');
-    const employeeModal = document.getElementById('employeeModal');
-    const detailModal = document.getElementById('detailModal');
-    const employeeForm = document.getElementById('employeeForm');
+    function renderTable() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const currentEmployees = employees.slice(startIndex, endIndex);
 
-    // Initialize the application
-    document.addEventListener('DOMContentLoaded', function() {
-      setupEventListeners();
-      renderEmployeeTable();
-      updateStatistics();
+        const tableBody = document.getElementById('employeeTableBody');
+        tableBody.innerHTML = '';
+
+        currentEmployees.forEach(employee => {
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-gray-50 transition-colors';
+            row.innerHTML = `
+<!-- Kolom Nama dan ID -->
+    <td class="px-6 py-5">
+        <div>
+            <div class="font-semibold text-gray-900">${employee.name}</div>
+            <div class="text-sm text-gray-500 flex items-center mt-1">
+                <i class="fas fa-id-badge mr-1"></i>
+                ID: ${employee.id}
+            </div>
+        </div>
+    </td>
+
+    <!-- Kolom Lokasi -->
+    <td class="px-6 py-5 text-center">
+        <span class="text-gray-700 font-medium">${employee.location}</span>
+    </td>
+
+    <!-- Kolom Aksi -->
+    <td class="px-6 py-5 text-center">
+        <div class="flex justify-center gap-2 flex-wrap">
+
+            <!-- Tombol LIHAT -->
+            <a href="/lihatdata.html">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center"
+                onclick="viewData('${employee.id}')">
+                <i class="fas fa-eye mr-1"></i>
+                LIHAT
+            </button>
+            </a>
+
+            <!-- Tombol EDIT -->
+             <a href="/editdata.html">
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center"
+                onclick="editData('${employee.id}')">
+                <i class="fas fa-edit mr-1"></i>
+                EDIT
+            </button>
+            </a>
+
+            <!-- Tombol TAMBAH -->
+            <a href="/tambahdata.html">
+  <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center">
+    <i class="fas fa-plus mr-1"></i>
+    TAMBAH
+  </button>
+</a>
+
+        </div>
+    </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Tambahkan baris kosong jika jumlah kurang dari itemsPerPage
+        const remainingRows = itemsPerPage - currentEmployees.length;
+        for (let i = 0; i < remainingRows; i++) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.className = 'h-16 hover:bg-gray-50 transition-colors';
+            emptyRow.innerHTML = `
+                <td class="px-6 py-4"></td>
+                <td class="px-6 py-4"></td>
+                <td class="px-6 py-4"></td>
+                <td class="px-6 py-4"></td>
+            `;
+            tableBody.appendChild(emptyRow);
+        }
+
+        updatePaginationInfo();
+        updatePaginationButtons();
+    }
+
+    function updatePaginationInfo() {
+        const startIndex = (currentPage - 1) * itemsPerPage + 1;
+        const endIndex = Math.min(currentPage * itemsPerPage, employees.length);
+
+        document.getElementById('showingStart').textContent = startIndex;
+        document.getElementById('showingEnd').textContent = endIndex;
+        document.getElementById('totalRecords').textContent = employees.length;
+    }
+
+    function updatePaginationButtons() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+
+        const pageNumbers = document.getElementById('pageNumbers');
+        pageNumbers.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = `pagination-btn px-3 py-2 rounded-lg text-sm font-medium ${
+                i === currentPage 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`;
+            pageBtn.textContent = i;
+            pageBtn.onclick = () => goToPage(i);
+            pageNumbers.appendChild(pageBtn);
+        }
+    }
+
+    function previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    }
+
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+        }
+    }
+
+    function goToPage(page) {
+        currentPage = page;
+        renderTable();
+    }
+
+    // Handler lihat data
+    function viewData(id) {
+        const employee = employees.find(emp => emp.id === id);
+        alert(`Melihat data untuk: ${employee.name} (ID: ${id})`);
+    }
+
+    // Handler edit data
+    function editData(id) {
+        const employee = employees.find(emp => emp.id === id);
+        alert(`Mengedit data untuk: ${employee.name} (ID: ${id})`);
+    }
+
+    // Handler tambah data
+    function addData() {
+        alert('Form tambah data karyawan akan ditampilkan di sini');
+    }
+
+    // Navigasi halaman
+    function navigateTo(page) {
+        if (page === 'dashboard') {
+            alert('Navigasi ke Dashboard');
+            // Tambahkan implementasi navigasi
+        }
+    }
+
+    // Logout
+    function logout() {
+        if (confirm('Apakah Anda yakin ingin logout?')) {
+            alert('Logout berhasil! Anda akan diarahkan ke halaman login.');
+            // Tambahkan implementasi logout
+        }
+    }
+
+    // Pencarian karyawan
+    function searchEmployee() {
+        const searchTerm = document.getElementById('sortInput').value.toLowerCase();
+        if (searchTerm.trim() === '') {
+            alert('Silakan masukkan kata kunci pencarian');
+            return;
+        }
+
+        const results = employees.filter(emp =>
+            emp.name.toLowerCase().includes(searchTerm) || 
+            emp.location.toLowerCase().includes(searchTerm) || 
+            emp.id.includes(searchTerm)
+        );
+
+        if (results.length === 0) {
+            alert(`Tidak ditemukan karyawan dengan kata kunci: "${searchTerm}"`);
+        } else {
+            alert(`Ditemukan ${results.length} karyawan dengan kata kunci: "${searchTerm}"`);
+        }
+
+        // Tampilkan hasil pencarian ke tabel
+        currentPage = 1;
+        employees.splice(0, employees.length, ...results);
+        renderTable();
+    }
+
+    // Event listener tombol Enter pada input pencarian
+    document.getElementById('sortInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchEmployee();
+        }
     });
 
-    // Event Listeners
-    function setupEventListeners() {
-      // Mobile menu controls
-      mobileMenuBtn.addEventListener('click', openSidebar);
-      closeSidebarBtn.addEventListener('click', closeSidebar);
-      overlay.addEventListener('click', closeSidebar);
+    // Inisialisasi awal tabel
+    renderTable();
+</script>
 
-      // Search and filter
-      searchInput.addEventListener('input', debounce(handleSearch, 300));
-      locationFilter.addEventListener('change', handleLocationFilter);
-
-      // Modal controls
-      document.getElementById('addEmployeeBtn').addEventListener('click', openAddEmployeeModal);
-      document.getElementById('closeModal').addEventListener('click', closeEmployeeModal);
-      document.getElementById('cancelBtn').addEventListener('click', closeEmployeeModal);
-      document.getElementById('closeDetailModal').addEventListener('click', closeDetailModal);
-
-      // Form submission
-      employeeForm.addEventListener('submit', handleFormSubmit);
-
-      // Close modals when clicking outside
-      employeeModal.addEventListener('click', function(e) {
-        if (e.target === employeeModal) closeEmployeeModal();
-      });
-      detailModal.addEventListener('click', function(e) {
-        if (e.target === detailModal) closeDetailModal();
-      });
-
-      // Keyboard navigation
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          if (employeeModal.classList.contains('show')) closeEmployeeModal();
-          if (detailModal.classList.contains('show')) closeDetailModal();
-          if (sidebar.classList.contains('open')) closeSidebar();
-        }
-      });
-    }
-
-    // Sidebar functions
-    function openSidebar() {
-      sidebar.classList.add('open');
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeSidebar() {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-
-    // Search and filter functions
-    function handleSearch() {
-      const searchTerm = searchInput.value.toLowerCase().trim();
-      applyFilters(searchTerm, locationFilter.value);
-    }
-
-    function handleLocationFilter() {
-      const searchTerm = searchInput.value.toLowerCase().trim();
-      applyFilters(searchTerm, locationFilter.value);
-    }
-
-    function applyFilters(searchTerm, location) {
-      filteredEmployees = employees.filter(employee => {
-        const matchesSearch = !searchTerm || 
-          employee.name.toLowerCase().includes(searchTerm) ||
-          employee.id.toLowerCase().includes(searchTerm);
-        
-        const matchesLocation = !location || employee.location === location;
-        
-        return matchesSearch && matchesLocation;
-      });
-      
-      currentPage = 1;
-      renderEmployeeTable();
-      updatePagination();
-    }
-
-    // Render employee table
-    function renderEmployeeTable() {
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const paginatedEmployees = filteredEmployees.slice(startIndex, endIndex);
-
-      if (paginatedEmployees.length === 0) {
-        employeeTable.innerHTML = `
-          <div class="py-12 text-center">
-            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-6m-10 0h6m4 0a2 2 0 002-2v-3a2 2 0 00-2-2h-4v5zM7 13h10v5H7v-5z" />
-            </svg>
-            <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data karyawan</h3>
-            <p class="mt-1 text-sm text-gray-500">Mulai dengan menambahkan karyawan baru.</p>
-          </div>
-        `;
-        return;
-      }
-
-      employeeTable.innerHTML = paginatedEmployees.map(employee => `
-        <div class="grid grid-cols-1 md:grid-cols-5 items-center py-6 hover:bg-gray-50 transition-colors">
-          <div class="px-6 text-center md:text-left">
-            <div class="font-semibold text-gray-900">${employee.name}</div>
-            <div class="text-sm text-gray-500 mt-1">ID: ${employee.id}</div>
-          </div>
-          <div class="px-6 text-center">
-            <span class="text-gray-700 italic">${employee.location}</span>
-          </div>
-          <div class="px-6 text-center hidden md:block">
-            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
-              employee.Absensi === 'active' ? 'Absensi-active' : 'Absensi-inactive'
-            }">
-              ${employee.Absensi === 'active' ? 'Hadir' : 'Tidak Hadir'}
-            </span>
-          </div>
-<div class="px-6 text-center">
-  <div class="flex flex-col md:flex-row justify-center gap-2">
-    <!-- Lihat Detail -->
-    <button onclick="viewEmployeeDetail('${employee.id}')"
-      class="w-full md:w-auto px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-semibold hover:bg-sky-600 transition-all">
-      LIHAT DETAIL
-    </button>
-
-    <!-- Edit -->
-    <button onclick="editEmployee('${employee.id}')"
-      class="w-full md:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition-all">
-      EDIT
-    </button>
-
-    <!-- Hapus -->
-    <button onclick="deleteEmployee('${employee.id}')"
-      class="w-full md:w-auto px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-semibold hover:bg-red-600 transition-all">
-      HAPUS
-    </button>
-  </div>
-</div>
-
-          </div>
-        </div>
-      `).join('');
-
-      updatePagination();
-    }
-
-    // Statistics
-    function updateStatistics() {
-      const total = employees.length;
-      const active = employees.filter(emp => emp.Absensi === 'active').length;
-      const inactive = total - active;
-
-      document.getElementById('totalEmployees').textContent = total;
-      document.getElementById('activeEmployees').textContent = active;
-      document.getElementById('inactiveEmployees').textContent = inactive;
-    }
-
-    // Pagination
-    function updatePagination() {
-      const total = filteredEmployees.length;
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = Math.min(startIndex + itemsPerPage, total);
-
-      document.getElementById('showingStart').textContent = total > 0 ? startIndex + 1 : 0;
-      document.getElementById('showingEnd').textContent = endIndex;
-      document.getElementById('totalCount').textContent = total;
-
-      const prevBtn = document.getElementById('prevPage');
-      const nextBtn = document.getElementById('nextPage');
-
-      prevBtn.disabled = currentPage <= 1;
-      nextBtn.disabled = endIndex >= total;
-
-      prevBtn.onclick = () => {
-        if (currentPage > 1) {
-          currentPage--;
-          renderEmployeeTable();
-        }
-      };
-
-      nextBtn.onclick = () => {
-        if (endIndex < total) {
-          currentPage++;
-          renderEmployeeTable();
-        }
-      };
-    }
-
-    // Modal functions
-    function openAddEmployeeModal() {
-      editingEmployeeId = null;
-      document.getElementById('modalTitle').textContent = 'Tambah Karyawan Baru';
-      employeeForm.reset();
-      employeeModal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('employeeName').focus();
-    }
-
-    function closeEmployeeModal() {
-      employeeModal.classList.remove('show');
-      document.body.style.overflow = '';
-      employeeForm.reset();
-      editingEmployeeId = null;
-    }
-
-    function closeDetailModal() {
-      detailModal.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-
-    // Employee CRUD operations
-    function editEmployee(id) {
-      const employee = employees.find(emp => emp.id === id);
-      if (!employee) return;
-
-      editingEmployeeId = id;
-      document.getElementById('modalTitle').textContent = 'Edit Karyawan';
-      
-      // Populate form
-      document.getElementById('employeeName').value = employee.name;
-      document.getElementById('employeeId').value = employee.id;
-      document.getElementById('employeeLocation').value = employee.location;
-      document.getElementById('employeePhone').value = employee.phone || '';
-      document.getElementById('employeeEmail').value = employee.email || '';
-      document.getElementById('employeeAbsensi').value = employee.Absensi;
-
-      employeeModal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function deleteEmployee(id) {
-      const employee = employees.find(emp => emp.id === id);
-      if (!employee) return;
-
-      if (confirm(`Apakah Anda yakin ingin menghapus data karyawan ${employee.name}?`)) {
-        employees = employees.filter(emp => emp.id !== id);
-        applyFilters(searchInput.value.toLowerCase().trim(), locationFilter.value);
-        updateStatistics();
-        
-        // Show success message
-        showNotification('Karyawan berhasil dihapus!', 'success');
-      }
-    }
-
-    function viewEmployeeDetail(id) {
-      const employee = employees.find(emp => emp.id === id);
-      if (!employee) return;
-
-      const detailContent = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-600">Nama Lengkap</label>
-              <p class="mt-1 text-lg font-semibold text-gray-900">${employee.name}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-600">ID Karyawan</label>
-              <p class="mt-1 text-lg text-gray-900">${employee.id}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-600">Lokasi</label>
-              <p class="mt-1 text-lg text-gray-900">${employee.location}</p>
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-600">Nomor Telepon</label>
-              <p class="mt-1 text-lg text-gray-900">${employee.phone || '-'}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-600">Email</label>
-              <p class="mt-1 text-lg text-gray-900">${employee.email || '-'}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-600">Absensi</label>
-              <span class="mt-1 inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                employee.Absensi === 'active' ? 'Absensi-active' : 'Absensi-inactive'
-              }">
-                ${employee.Absensi === 'active' ? 'Hadir' : 'Tidak Hadir'}
-              </span>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-600">Tanggal Bergabung</label>
-              <p class="mt-1 text-lg text-gray-900">${formatDate(employee.joinDate)}</p>
-            </div>
-          </div>
-        </div>
-        <div class="mt-8 flex gap-4">
-          <button onclick="editEmployee('${employee.id}'); closeDetailModal();" 
-            class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold btn-hover">
-            Edit Karyawan
-          </button>
-          <button onclick="closeDetailModal()" 
-            class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
-            Tutup
-          </button>
-        </div>
-      `;
-
-      document.getElementById('employeeDetail').innerHTML = detailContent;
-      detailModal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(employeeForm);
-      const employeeData = {
-        id: formData.get('id'),
-        name: formData.get('name'),
-        location: formData.get('location'),
-        phone: formData.get('phone'),
-        email: formData.get('email'),
-        Absensi: formData.get('Absensi'),
-        joinDate: editingEmployeeId ? 
-          employees.find(emp => emp.id === editingEmployeeId).joinDate : 
-          new Date().toISOString().split('T')[0]
-      };
-
-      // Validate unique ID
-      const existingEmployee = employees.find(emp => emp.id === employeeData.id);
-      if (existingEmployee && (!editingEmployeeId || existingEmployee.id !== editingEmployeeId)) {
-        showNotification('ID Karyawan sudah digunakan!', 'error');
-        return;
-      }
-
-      if (editingEmployeeId) {
-        // Update existing employee
-        const index = employees.findIndex(emp => emp.id === editingEmployeeId);
-        employees[index] = employeeData;
-        showNotification('Data karyawan berhasil diperbarui!', 'success');
-      } else {
-        // Add new employee
-        employees.push(employeeData);
-        showNotification('Karyawan baru berhasil ditambahkan!', 'success');
-      }
-
-      closeEmployeeModal();
-      applyFilters(searchInput.value.toLowerCase().trim(), locationFilter.value);
-      updateStatistics();
-    }
-
-    // Utility functions
-    function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-      };
-    }
-
-    function formatDate(dateString) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(dateString).toLocaleDateString('id-ID', options);
-    }
-
-    function showNotification(message, type) {
-      // Create notification element
-      const notification = document.createElement('div');
-      notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg text-white font-semibold transform translate-x-full transition-transform duration-300 ${
-        type === 'success' ? 'bg-green-500' : 'bg-red-500'
-      }`;
-      notification.textContent = message;
-
-      document.body.appendChild(notification);
-
-      // Animate in
-      setTimeout(() => {
-        notification.classList.remove('translate-x-full');
-      }, 100);
-
-      // Animate out and remove
-      setTimeout(() => {
-        notification.classList.add('translate-x-full');
-        setTimeout(() => {
-          document.body.removeChild(notification);
-        }, 300);
-      }, 3000);
-    }
-
-    // Navigation functions
-    function navigateTo(page) {
-      console.log('Navigating to:', page);
-      // In a real application, this would handle routing
-      closeSidebar();
-    }
-
-    function logout() {
-      if (confirm('Apakah Anda yakin ingin keluar?')) {
-        console.log('Logging out...');
-        // In a real application, this would handle logout
-      }
-    }
-  </script>
 </body>
 </html>
