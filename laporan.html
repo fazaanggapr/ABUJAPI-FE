@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Patrol Dashboard</title>
+    <title>Security Patrol Dashboard - Desktop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .diagonal-lines {
@@ -15,134 +15,147 @@
                 #1e40af 20px
             );
         }
+        .desktop-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="max-w-md mx-auto bg-white min-h-screen">
-        <!-- Header with diagonal pattern -->
-        <div class="diagonal-lines h-12 relative">
-            <div class="absolute top-0 left-0 w-full h-full flex items-center px-4">
-                <button class="text-white mr-3">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="desktop-container bg-white">
+        <!-- Header -->
+        <div class="diagonal-lines h-16 relative">
+            <div class="absolute top-0 left-0 w-full h-full flex items-center px-8">
+                <button onclick="window.location.href='dashboard.html'" class="text-white mr-4 hover:bg-blue-700 p-2 rounded-full transition">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
-                <h1 class="text-white text-lg font-semibold">Kembali</h1>
+                <h1 class="text-white text-2xl font-semibold">Kembali</h1>
+                <div class="ml-auto flex items-center space-x-4">
+                    <span class="text-white font-medium">Inukai Atsuhiro</span>
+                    <div class="w-10 h-10 bg-blue-300 rounded-full"></div>
+                </div>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="p-4 space-y-4">
+        <div class="p-8">
             <!-- Report Header -->
-            <div class="bg-blue-900 text-white p-3 rounded-lg">
-                <h2 class="font-semibold">LAPORAN MILIK : Inukai Atsuhiro</h2>
+            <div class="bg-blue-900 text-white p-4 rounded-lg mb-8">
+                <h2 class="font-semibold text-xl">LAPORAN MILIK : Inukai Atsuhiro</h2>
             </div>
 
-            <!-- Two Column Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Left Column - Patrol Activities -->
-                <div class="space-y-4">
-                    <div class="bg-blue-900 text-white p-3 rounded-lg">
-                        <h3 class="font-semibold">KEGIATAN PATROLI</h3>
+                <div class="col-span-2 space-y-6">
+                    <div class="bg-blue-900 text-white p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">KEGIATAN PATROLI</h3>
                     </div>
                     
-                    <div class="bg-blue-800 p-4 rounded-lg space-y-3">
+                    <div class="bg-blue-800 p-6 rounded-lg space-y-4">
                         <!-- Activity 1 -->
-                        <div class="flex items-start space-x-3">
-                            <div class="w-4 h-4 bg-green-400 rounded-sm mt-1 flex-shrink-0"></div>
-                            <div class="bg-white p-3 rounded-lg flex-1">
-                                <p class="text-sm text-gray-700">Memeriksa toilet pria, mencatat setiap kerusakan pada keran air</p>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-6 h-6 bg-green-400 rounded-sm mt-1 flex-shrink-0"></div>
+                            <div class="bg-white p-4 rounded-lg flex-1">
+                                <p class="text-base text-gray-700">Memeriksa toilet pria, mencatat setiap kerusakan pada keran air</p>
                             </div>
                         </div>
                         
                         <!-- Activity 2 -->
-                        <div class="flex items-start space-x-3">
-                            <div class="w-4 h-4 bg-orange-500 rounded-sm mt-1 flex-shrink-0"></div>
-                            <div class="bg-white p-3 rounded-lg flex-1">
-                                <p class="text-sm text-gray-700">Memeriksa lampu di setiap lantai</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Scroll indicator -->
-                        <div class="flex justify-center pt-2">
-                            <div class="w-8 h-1 bg-gray-400 rounded-full"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="space-y-4">
-                    <!-- Image Report -->
-<div class="space-y-2">
-    <div class="bg-blue-900 text-white p-3 rounded-lg">
-        <h3 class="font-semibold text-sm">LAPORAN GAMBAR</h3>
-    </div>
-
-    <div class="bg-cyan-900 p-4 rounded-lg">
-        <div class="bg-white rounded-lg p-2">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <span class="bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded">19:47</span>
-                    <span class="text-gray-700 text-xs font-semibold">Keterangan:</span>
-                </div>
-                <button class="bg-blue-700 text-white px-3 py-1 text-xs sm:text-sm rounded font-semibold whitespace-nowrap">
-  LIHAT GAMBAR
-</button>
-
-            </div>
-            <div class="mt-1">
-                <span class="text-gray-800 text-xs">Periksa keran toilet pria</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-                            
-                            <!-- Scroll indicator -->
-                            <div class="flex justify-center pt-4">
-                                <div class="w-8 h-1 bg-gray-400 rounded-full"></div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-6 h-6 bg-orange-500 rounded-sm mt-1 flex-shrink-0"></div>
+                            <div class="bg-white p-4 rounded-lg flex-1">
+                                <p class="text-base text-gray-700">Memeriksa lampu di setiap lantai</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Position Report -->
-                    <div class="space-y-2">
-                        <div class="bg-blue-900 text-white p-3 rounded-lg">
-                            <h3 class="font-semibold">LAPORAN POSISI</h3>
+                    <div class="mt-8 space-y-4">
+                        <div class="bg-blue-900 text-white p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg">LAPORAN POSISI</h3>
                         </div>
                         
-                        <div class="bg-blue-800 p-4 rounded-lg">
-                            <div class="text-white text-sm mb-3">Lokasi: Mall Ciputra Japan</div>
+                        <div class="bg-blue-800 p-6 rounded-lg">
+                            <div class="text-white text-lg mb-6 font-medium">Lokasi: Mall Ciputra Japan</div>
                             
                             <!-- Position indicators -->
-                            <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center justify-between mb-6">
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-8 bg-green-400 rounded-sm mb-1"></div>
-                                    <span class="text-white text-xs">Toilet lantai 1</span>
+                                    <div class="w-12 h-12 bg-green-400 rounded-sm mb-2"></div>
+                                    <span class="text-white text-base">Toilet lantai 1</span>
                                 </div>
                                 
-                                <div class="flex-1 h-1 bg-green-400 mx-2"></div>
+                                <div class="flex-1 h-2 bg-green-400 mx-4"></div>
                                 
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-8 bg-orange-500 rounded-sm mb-1"></div>
-                                    <span class="text-white text-xs">Toilet lantai 2</span>
+                                    <div class="w-12 h-12 bg-orange-500 rounded-sm mb-2"></div>
+                                    <span class="text-white text-base">Toilet lantai 2</span>
                                 </div>
                                 
-                                <div class="flex-1 h-1 bg-orange-500 mx-2"></div>
+                                <div class="flex-1 h-2 bg-orange-500 mx-4"></div>
                                 
-                               <div class="flex flex-col items-center">
-                                    <div class="w-8 h-8 bg-yellow-500 rounded-sm mb-1"></div>
-                                    <span class="text-white text-xs">Toilet lantai 3</span>
+                                <div class="flex flex-col items-center">
+                                    <div class="w-12 h-12 bg-yellow-500 rounded-sm mb-2"></div>
+                                    <span class="text-white text-base">Toilet lantai 3</span>
                                 </div>
+                            </div>
                             
-                            <!-- Navigation arrow -->
-                            <div class="flex justify-end">
-                                <button class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <!-- Navigation -->
+                            <div class="flex justify-between">
+                                <button class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                </button>
+                                <button class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                     </svg>
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Image Reports -->
+                <div class="space-y-6">
+                    <div class="bg-blue-900 text-white p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">LAPORAN GAMBAR</h3>
+                    </div>
+
+                    <div class="bg-blue-800 p-6 rounded-lg space-y-6">
+                        <!-- Image Report 1 -->
+                        <div class="bg-white rounded-lg p-4">
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-3 mb-3">
+                                <div class="flex items-center space-x-4">
+                                    <span class="bg-blue-600 text-white text-sm font-medium px-3 py-1 rounded">19:47</span>
+                                    <span class="text-gray-700 text-sm">Keterangan:</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-800 text-sm mb-4">Periksa keran toilet pria</p>
+                            <button class="w-full bg-blue-800 text-white py-3 text-sm rounded-md font-medium hover:bg-blue-700 transition">
+                                LIHAT GAMBAR
+                            </button>
+                        </div>
+
+                        <!-- Image Report 2 (Example) -->
+                        <div class="bg-white rounded-lg p-4">
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-3 mb-3">
+                                <div class="flex items-center space-x-4">
+                                    <span class="bg-blue-600 text-white text-sm font-medium px-3 py-1 rounded">20:15</span>
+                                    <span class="text-gray-700 text-sm">Keterangan:</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-800 text-sm mb-4">Pemeriksaan lampu lantai 2</p>
+                            <button class="w-full bg-blue-800 text-white py-3 text-sm rounded-md font-medium hover:bg-blue-700 transition">
+                                LIHAT GAMBAR
+                            </button>
                         </div>
                     </div>
                 </div>
