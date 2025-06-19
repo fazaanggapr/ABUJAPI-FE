@@ -90,23 +90,27 @@
             <div class="p-6">
                 <!-- Search and Add Data Section -->
                 <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center space-x-4">
-                        <label class="text-gray-700 font-medium">Sortir berdasarkan :</label>
-                        <div class="flex items-center space-x-2">
-                            <input 
-                                type="text" 
-                                placeholder="Cari karyawan..." 
-                                class="px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
-                                id="sortInput"
-                            >
-                            <button class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" onclick="searchEmployee()">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-
-                </div>
+    <div class="flex items-center space-x-4">
+        <label class="text-gray-700 font-medium">Sortir berdasarkan :</label>
+        <div class="flex items-center space-x-2">
+            <input 
+                type="text" 
+                placeholder="Cari karyawan..." 
+                class="px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
+                id="sortInput"
+            >
+            <button class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" onclick="searchEmployee()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Button TAMBAH TUGAS di sebelah kanan -->
+    <a href="tambah-tugas.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center">
+        <i class="fas fa-plus mr-2"></i>
+        TAMBAH TUGAS
+    </a>
+</div>
 
                  <!-- Employee Table -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
@@ -120,7 +124,7 @@
                             <i class="fas fa-map-marker-alt mr-2"></i>Lokasi
                         </th>
                         <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 w-1/4">
-                            <i class="fas fa-cogs mr-2"></i>Aksi
+                            <i class="fas fa-cogs mr-2"></i>Data Lengkap
                         </th>
                     </tr>
                 </thead>
@@ -208,26 +212,9 @@
             <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center"
                 onclick="viewData('${employee.id}')">
                 <i class="fas fa-eye mr-1"></i>
-                LIHAT
+                LIHAT DATA
             </button>
             </a>
-
-            <!-- Tombol EDIT -->
-             <a href="/editdata.html">
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center"
-                onclick="editData('${employee.id}')">
-                <i class="fas fa-edit mr-1"></i>
-                EDIT
-            </button>
-            </a>
-
-            <!-- Tombol TAMBAH -->
-            <a href="/tambahdata.html">
-  <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center">
-    <i class="fas fa-plus mr-1"></i>
-    TAMBAH
-  </button>
-</a>
 
         </div>
     </td>
