@@ -13,13 +13,21 @@
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto p-4 max-w-6xl">
-        <!-- Header -->
+        <!-- Header with Back Button - ONLY THIS BUTTON WAS CHANGED -->
         <div class="mb-6">
-            <div class="gradient-bg text-white px-6 py-4 rounded-t-lg">
-                <h1 class="text-xl font-bold">DATA PRIBADI</h1>
+            <div class="gradient-bg text-white px-6 py-4 rounded-t-lg flex items-center justify-between">
+                <div class="flex items-center">
+                    <button onclick="window.location.href='datakaryawan.html'" class="mr-4 text-white hover:bg-blue-700 p-2 rounded-full transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <h1 class="text-xl font-bold">DATA PRIBADI</h1>
+                </div>
             </div>
         </div>
 
+        <!-- ALL OTHER CONTENT REMAINS EXACTLY THE SAME -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Left Column - Personal Data -->
             <div class="lg:col-span-2">
@@ -255,11 +263,11 @@
                 </div>
 
                 <!-- Action Buttons -->
-                 <div class="flex justify-center mb-6 mt-8">
-    <a href="tambahtugas.html" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
-        TAMBAH TUGAS
-    </a>
-</div>
+                <div class="flex justify-center mb-6 mt-8">
+                    <a href="tambahtugas.html" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                        TAMBAH TUGAS
+                    </a>
+                </div>
                 <div class="mt-6 flex space-x-4">
                     <a href="editdata.html" class="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200" onclick="editData()">
                         EDIT DATA
