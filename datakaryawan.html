@@ -106,9 +106,9 @@
     </div>
     
     <!-- Button TAMBAH TUGAS di sebelah kanan -->
-    <a href="tambahtugas.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center">
+    <a href="tambahdata.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors shadow-md flex items-center">
         <i class="fas fa-plus mr-2"></i>
-        TAMBAH TUGAS
+        TAMBAH DATA
     </a>
 </div>
 
@@ -294,24 +294,16 @@
     // Handler lihat data
     function viewData(id) {
         const employee = employees.find(emp => emp.id === id);
-        alert(`Melihat data untuk: ${employee.name} (ID: ${id})`);
     }
 
     // Handler edit data
     function editData(id) {
         const employee = employees.find(emp => emp.id === id);
-        alert(`Mengedit data untuk: ${employee.name} (ID: ${id})`);
-    }
-
-    // Handler tambah data
-    function addData() {
-        alert('Form tambah data karyawan akan ditampilkan di sini');
     }
 
     // Navigasi halaman
     function navigateTo(page) {
         if (page === 'dashboard') {
-            alert('Navigasi ke Dashboard');
             // Tambahkan implementasi navigasi
         }
     }
@@ -319,7 +311,7 @@
     // Logout
     function logout() {
         if (confirm('Apakah Anda yakin ingin logout?')) {
-            alert('Logout berhasil! Anda akan diarahkan ke halaman login.');
+            window.location.href = 'login.html';
             // Tambahkan implementasi logout
         }
     }
@@ -328,7 +320,6 @@
     function searchEmployee() {
         const searchTerm = document.getElementById('sortInput').value.toLowerCase();
         if (searchTerm.trim() === '') {
-            alert('Silakan masukkan kata kunci pencarian');
             return;
         }
 

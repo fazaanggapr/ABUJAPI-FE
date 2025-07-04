@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Karyawan</title>
+    <title>Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -18,6 +18,27 @@
             }
         }
     </script>
+    <style>
+        .qr-placeholder {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDE2MCAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiBmaWxsPSJ3aGl0ZSIvPgo8IS0tIFRvcCBsZWZ0IGNvcm5lciAtLT4KPHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ3aGl0ZSIvPgo8IS0tIFRvcCByaWdodCBjb3JuZXIgLS0+CjxyZWN0IHg9IjExMCIgeT0iMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTIwIiB5PSIyMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ3aGl0ZSIvPgo8IS0tIEJvdHRvbSBsZWZ0IGNvcm5lciAtLT4KPHJlY3QgeD0iMTAiIHk9IjExMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSIyMCIgeT0iMTIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IndoaXRlIi8+CjwhLS0gUGF0dGVybiBkb3RzIC0tPgo8cmVjdCB4PSI3MCIgeT0iMTAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iNjAiIHk9IjIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjgwIiB5PSIyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSI3MCIgeT0iMzAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTAiIHk9IjcwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjMwIiB5PSI3MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSI0MCIgeT0iNzAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iNjAiIHk9IjcwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjkwIiB5PSI3MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSIxMTAiIHk9IjcwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjEzMCIgeT0iNzAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTQwIiB5PSI3MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSI3MCIgeT0iODAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTAwIiB5PSI4MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSI2MCIgeT0iMTAwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjgwIiB5PSIxMDAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTAwIiB5PSIxMDAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTMwIiB5PSIxMDAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTQwIiB5PSIxMDAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iNjAiIHk9IjEyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSI4MCIgeT0iMTIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjEwMCIgeT0iMTIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjEyMCIgeT0iMTIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjEzMCIgeT0iMTMwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjE0MCIgeT0iMTMwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9ImJsYWNrIi8+CjxyZWN0IHg9IjYwIiB5PSIxNDAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iODAiIHk9IjE0MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSIxMDAiIHk9IjE0MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSIxMjAiIHk9IjE0MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSIxNDAiIHk9IjE0MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+        
+        .modal-transition {
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        .modal-content {
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 font-sans">
     <div class="flex h-screen">
@@ -44,29 +65,27 @@
                 </div>
             </div>
             
-<!-- Navigation -->
-<nav class="flex-1 px-4 mt-4">
-    <ul class="space-y-3">
-        <li>
-            <a href="dashboard.html"
-               class="w-full block rounded-lg px-4 py-3 text-sm font-semibold flex items-center justify-center transition-colors
-               bg-white text-slate-800 shadow-md hover:bg-gray-100">
-                <i class="fas fa-chart-line mr-2"></i>
-                DASHBOARD
-            </a>
-        </li>
-        <li>
-            <a href="datakaryawan.html"
-               class="w-full block rounded-lg px-4 py-3 text-sm font-medium flex items-center justify-center transition-colors
-               text-blue-100 hover:bg-white hover:bg-opacity-10">
-                <i class="fas fa-users mr-2"></i>
-                DATA KARYAWAN
-            </a>
-        </li>
-    </ul>
-</nav>
-
-
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 mt-4">
+                <ul class="space-y-3">
+                    <li>
+                        <a href="dashboard.html"
+                           class="w-full block rounded-lg px-4 py-3 text-sm font-semibold flex items-center justify-center transition-colors
+                           bg-white text-slate-800 shadow-md hover:bg-gray-100">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            DASHBOARD
+                        </a>
+                    </li>
+                    <li>
+                        <a href="datakaryawan.html"
+                           class="w-full block rounded-lg px-4 py-3 text-sm font-medium flex items-center justify-center transition-colors
+                           text-blue-100 hover:bg-white hover:bg-opacity-10">
+                            <i class="fas fa-users mr-2"></i>
+                            DATA KARYAWAN
+                        </a>
+                    </li>
+                </ul>
+            </nav>
             
             <!-- Logout Button -->
             <div class="p-4">
@@ -119,197 +138,216 @@
                             <i class="fas fa-search text-gray-400"></i>
                         </button>
                     </div>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-md flex items-center">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-md flex items-center" id="generateQRBtn">
                         <i class="fas fa-qrcode mr-2"></i>
                         GENERATE CODE QR
                     </button>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-    <table class="w-full">
-        <thead>
-            <tr class="bg-gradient-to-r from-cyan-200 to-blue-200">
-                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                    <i class="fas fa-user mr-2"></i>Nama
-                </th>
-                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
-                    <i class="fas fa-clock mr-2"></i>Absensi
-                </th>
-                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
-                    <i class="fas fa-file-alt mr-2"></i>Hasil laporan
-                </th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100" id="employeeTableBody">
-            <!-- Data akan dimuat di sini -->
-        </tbody>
-    </table>
-</div>
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-cyan-200 to-blue-200">
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                                    <i class="fas fa-user mr-2"></i>Nama
+                                </th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
+                                    <i class="fas fa-clock mr-2"></i>Absensi
+                                </th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
+                                    <i class="fas fa-file-alt mr-2"></i>Hasil laporan
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100" id="employeeTableBody">
+                            <!-- Data akan dimuat di sini -->
+                        </tbody>
+                    </table>
+                </div>
 
-<!-- Pagination -->
-<div class="mt-6 flex items-center justify-between">
-    <div class="text-sm text-gray-600">
-        Menampilkan <span id="showingStart">1</span>-<span id="showingEnd">5</span> dari <span id="totalRecords">0</span> data
-    </div>
-    <div class="flex items-center space-x-2">
-        <button id="prevBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="previousPage()">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <div id="pageNumbers" class="flex space-x-1">
-            <!-- Page numbers akan dimuat di sini -->
+                <!-- Pagination -->
+                <div class="mt-6 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Menampilkan <span id="showingStart">1</span>-<span id="showingEnd">5</span> dari <span id="totalRecords">0</span> data
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="prevBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="previousPage()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div id="pageNumbers" class="flex space-x-1">
+                            <!-- Page numbers akan dimuat di sini -->
+                        </div>
+                        <button id="nextBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="nextPage()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button id="nextBtn" class="pagination-btn bg-white border border-gray-300 text-gray-500 px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" onclick="nextPage()">
-            <i class="fas fa-chevron-right"></i>
-        </button>
     </div>
-</div>
+
+    <!-- QR Code Modal -->
+    <div class="modal-overlay fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 opacity-0 invisible modal-transition" id="qrModal">
+        <div class="modal-content bg-white p-10 rounded-2xl shadow-2xl relative max-w-sm w-11/12 mx-5 text-center">
+            <button class="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white border-none w-8 h-8 rounded-full cursor-pointer flex items-center justify-center text-base transition-all duration-200 shadow-md hover:scale-105" id="closeModalBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="my-5 p-5 bg-gray-50 rounded-xl inline-block">
+                <div class="w-48 h-48 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center mx-auto">
+                    <div class="qr-placeholder w-40 h-40"></div>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-gray-700 text-sm font-medium">
+                Tanggal : <span id="currentDate"></span>
             </div>
         </div>
     </div>
 
     <script>
         // Data karyawan dengan absensi
-const employees = [
-    { id: '019', name: 'Inukai Atsuhiro', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
-    { id: '022', name: 'Yamada Akiko', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-    { id: '020', name: 'Sato Yuki', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
-    { id: '022', name: 'Akiko Takeshi', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-    { id: '023', name: 'Yuki Kato', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
-    { id: '021', name: 'Atsuhiro Yamada', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
-    { id: '024', name: 'Inukai Kamshimida', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
-    { id: '025', name: 'Yamada Honda', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
-    { id: '026', name: 'Sato Suzuki', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
-];
+        const employees = [
+            { id: '019', name: 'Inukai Atsuhiro', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
+            { id: '022', name: 'Yamada Akiko', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+            { id: '020', name: 'Sato Yuki', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
+            { id: '022', name: 'Akiko Takeshi', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+            { id: '023', name: 'Yuki Kato', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
+            { id: '021', name: 'Atsuhiro Yamada', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
+            { id: '024', name: 'Inukai Kamshimida', status: 'HADIR', statusClass: 'bg-green-100 text-green-800 border-green-200' },
+            { id: '025', name: 'Yamada Honda', status: 'IZIN', statusClass: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
+            { id: '026', name: 'Sato Suzuki', status: 'TIDAK HADIR', statusClass: 'bg-red-100 text-red-800 border-red-200' },
+        ];
 
-let currentPage = 1;
-const itemsPerPage = 3;
-const totalPages = Math.ceil(employees.length / itemsPerPage);
+        let currentPage = 1;
+        const itemsPerPage = 3;
+        const totalPages = Math.ceil(employees.length / itemsPerPage);
 
-// Get status icon
-function getStatusIcon(status) {
-    switch (status) {
-        case 'HADIR':
-            return 'fa-check-circle';
-        case 'TIDAK HADIR':
-            return 'fa-times-circle';
-        case 'IZIN':
-            return 'fa-exclamation-circle';
-        default:
-            return 'fa-question-circle';
-    }
-}
+        // Get status icon
+        function getStatusIcon(status) {
+            switch (status) {
+                case 'HADIR':
+                    return 'fa-check-circle';
+                case 'TIDAK HADIR':
+                    return 'fa-times-circle';
+                case 'IZIN':
+                    return 'fa-exclamation-circle';
+                default:
+                    return 'fa-question-circle';
+            }
+        }
 
-function renderTable() {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentEmployees = employees.slice(startIndex, endIndex);
+        function renderTable() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentEmployees = employees.slice(startIndex, endIndex);
 
-    const tableBody = document.getElementById('employeeTableBody');
-    tableBody.innerHTML = '';
+            const tableBody = document.getElementById('employeeTableBody');
+            tableBody.innerHTML = '';
 
-    currentEmployees.forEach(employee => {
-        const row = document.createElement('tr');
-        row.className = 'hover:bg-gray-50 transition-colors';
-        row.innerHTML = `
-            <td class="px-6 py-5">
-                <div>
-                    <div class="font-semibold text-gray-900">${employee.name}</div>
-                    <div class="text-sm text-gray-500 flex items-center mt-1">
-                        <i class="fas fa-id-badge mr-1"></i>
-                        ${employee.id}
-                    </div>
-                </div>
-            </td>
-            <td class="px-6 py-5 text-center">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${employee.statusClass} border">
-                    <i class="fas ${getStatusIcon(employee.status)} mr-1"></i>
-                    ${employee.status}
-                </span>
-            </td>
-            <td class="px-6 py-5 text-center">
-                <a href="/laporan.html">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors shadow-md flex items-center mx-auto">
-                        <i class="fas fa-eye mr-1"></i>
-                        LIHAT LAPORAN
-                    </button>
-                </a>
-            </td>
-        `;
-        tableBody.appendChild(row);
-    });
+            currentEmployees.forEach(employee => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 transition-colors';
+                row.innerHTML = `
+                    <td class="px-6 py-5">
+                        <div>
+                            <div class="font-semibold text-gray-900">${employee.name}</div>
+                            <div class="text-sm text-gray-500 flex items-center mt-1">
+                                <i class="fas fa-id-badge mr-1"></i>
+                                ${employee.id}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5 text-center">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${employee.statusClass} border">
+                            <i class="fas ${getStatusIcon(employee.status)} mr-1"></i>
+                            ${employee.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-5 text-center">
+                        <a href="/laporan.html">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors shadow-md flex items-center mx-auto">
+                                <i class="fas fa-eye mr-1"></i>
+                                LIHAT LAPORAN
+                            </button>
+                        </a>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
 
-    // Tambahkan baris kosong jika jumlah kurang dari itemsPerPage
-    const remainingRows = itemsPerPage - currentEmployees.length;
-    for (let i = 0; i < remainingRows; i++) {
-        const emptyRow = document.createElement('tr');
-        emptyRow.className = 'h-16 hover:bg-gray-50 transition-colors';
-        emptyRow.innerHTML = `
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-        `;
-        tableBody.appendChild(emptyRow);
-    }
+            // Tambahkan baris kosong jika jumlah kurang dari itemsPerPage
+            const remainingRows = itemsPerPage - currentEmployees.length;
+            for (let i = 0; i < remainingRows; i++) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.className = 'h-16 hover:bg-gray-50 transition-colors';
+                emptyRow.innerHTML = `
+                    <td class="px-6 py-4"></td>
+                    <td class="px-6 py-4"></td>
+                    <td class="px-6 py-4"></td>
+                `;
+                tableBody.appendChild(emptyRow);
+            }
 
-    updatePaginationInfo();
-    updatePaginationButtons();
-}
+            updatePaginationInfo();
+            updatePaginationButtons();
+        }
 
-function updatePaginationInfo() {
-    const startIndex = (currentPage - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(currentPage * itemsPerPage, employees.length);
+        function updatePaginationInfo() {
+            const startIndex = (currentPage - 1) * itemsPerPage + 1;
+            const endIndex = Math.min(currentPage * itemsPerPage, employees.length);
 
-    document.getElementById('showingStart').textContent = startIndex;
-    document.getElementById('showingEnd').textContent = endIndex;
-    document.getElementById('totalRecords').textContent = employees.length;
-}
+            document.getElementById('showingStart').textContent = startIndex;
+            document.getElementById('showingEnd').textContent = endIndex;
+            document.getElementById('totalRecords').textContent = employees.length;
+        }
 
-function updatePaginationButtons() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+        function updatePaginationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
 
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
 
-    const pageNumbers = document.getElementById('pageNumbers');
-    pageNumbers.innerHTML = '';
+            const pageNumbers = document.getElementById('pageNumbers');
+            pageNumbers.innerHTML = '';
 
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.className = `pagination-btn px-3 py-2 rounded-lg text-sm font-medium ${
-            i === currentPage 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-        }`;
-        pageBtn.textContent = i;
-        pageBtn.onclick = () => goToPage(i);
-        pageNumbers.appendChild(pageBtn);
-    }
-}
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `pagination-btn px-3 py-2 rounded-lg text-sm font-medium ${
+                    i === currentPage 
+                        ? 'bg-blue-500 text-white' 
+                        : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`;
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => goToPage(i);
+                pageNumbers.appendChild(pageBtn);
+            }
+        }
 
-function previousPage() {
-    if (currentPage > 1) {
-        currentPage--;
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderTable();
+        }
+
+        // Initialize table
         renderTable();
-    }
-}
 
-function nextPage() {
-    if (currentPage < totalPages) {
-        currentPage++;
-        renderTable();
-    }
-}
-
-function goToPage(page) {
-    currentPage = page;
-    renderTable();
-}
-
-// Initialize table
-renderTable();
-
- // Calendar functionality
+        // Calendar functionality
         let currentWeekStart = new Date();
         
         // Set to current date (June 18, 2025 - Wednesday)
@@ -385,10 +423,56 @@ renderTable();
             console.log('Searching for:', searchTerm);
             // Implement search logic here
         });
-        
-        // QR Code generation
-        document.querySelector('button:has(.fa-qrcode)').addEventListener('click', function() {
-            alert('Fitur Generate QR Code akan diimplementasikan di sini');
+
+        // QR Code Modal Functionality
+        function getCurrentDate() {
+            const now = new Date();
+            const day = now.getDate();
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        // Set current date
+        document.getElementById('currentDate').textContent = getCurrentDate();
+
+        // Modal functionality
+        const generateQRBtn = document.getElementById('generateQRBtn');
+        const qrModal = document.getElementById('qrModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        // Open modal
+        generateQRBtn.addEventListener('click', function() {
+            qrModal.classList.remove('opacity-0', 'invisible');
+            qrModal.classList.add('opacity-100', 'visible');
+            document.body.style.overflow = 'hidden'; // Prevent body scroll
+        });
+
+        // Close modal
+        function closeModal() {
+            qrModal.classList.remove('opacity-100', 'visible');
+            qrModal.classList.add('opacity-0', 'invisible');
+            document.body.style.overflow = ''; // Restore body scroll
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && qrModal.classList.contains('visible')) {
+                closeModal();
+            }
         });
         
         // Navigation interactions
@@ -408,9 +492,8 @@ renderTable();
         
         // Logout functionality
         document.querySelector('button:has(.fa-sign-out-alt)').addEventListener('click', function() {
-            if (confirm('Apakah Anda yakin ingin logout?')) {
-                alert('Logout berhasil! Anda akan diarahkan ke halaman login.');
-                // Implementasi logout logic di sini
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                window.location.href = 'login.html'; // Redirect to login page
             }
         });
     </script>

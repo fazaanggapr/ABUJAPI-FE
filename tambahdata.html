@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Karyawan</title>
+    <title>Tambah Data</title>
     <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
@@ -15,8 +29,15 @@
     <div class="container mx-auto p-4 max-w-6xl">
         <!-- Header -->
         <div class="mb-6">
-            <div class="gradient-bg text-white px-6 py-4 rounded-t-lg">
-                <h1 class="text-xl font-bold">DATA PRIBADI</h1>
+            <div class="bg-gradient-to-r from-primary-900 to-primary-800 text-white px-6 py-4 rounded-t-lg flex items-center justify-between">
+                <div class="flex items-center">
+                    <button onclick="window.location.href='datakaryawan.html'" class="mr-4 text-white hover:bg-primary-700 p-2 rounded-full transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <h1 class="text-xl font-bold">TAMBAH DATA</h1>
+                </div>
             </div>
         </div>
 
@@ -231,7 +252,7 @@
                     <button class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200" onclick="cancelForm()">
                         BATAL
                     </button>
-                    <button class="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200" onclick="submitForm()">
+                    <button class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200" onclick="submitForm()">
                         TAMBAH DATA
                     </button>
                 </div>

@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lihat Data Karyawan</title>
+    <title>Lihat Data</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
         }
-    </style>
+    </script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
     <div class="container mx-auto p-4 max-w-6xl">
-        <!-- Header with Back Button - ONLY THIS BUTTON WAS CHANGED -->
+        <!-- Header -->
         <div class="mb-6">
-            <div class="gradient-bg text-white px-6 py-4 rounded-t-lg flex items-center justify-between">
+            <div class="bg-gradient-to-r from-primary-900 to-primary-800 text-white px-6 py-4 rounded-t-lg flex items-center justify-between">
                 <div class="flex items-center">
-                    <button onclick="window.location.href='datakaryawan.html'" class="mr-4 text-white hover:bg-blue-700 p-2 rounded-full transition">
+                    <button onclick="window.location.href='datakaryawan.html'" class="mr-4 text-white hover:bg-primary-700 p-2 rounded-full transition">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
@@ -27,24 +36,24 @@
             </div>
         </div>
 
-        <!-- ALL OTHER CONTENT REMAINS EXACTLY THE SAME -->
+        <!-- Main Content -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Left Column - Personal Data -->
             <div class="lg:col-span-2">
                 <!-- Profile Card -->
-                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6 border border-gray-200">
                     <div class="flex flex-col md:flex-row gap-6">
                         <!-- Profile Photo -->
                         <div class="flex-shrink-0">
-                            <div class="w-32 h-40 bg-blue-500 rounded-lg overflow-hidden relative">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='160' viewBox='0 0 128 160'%3E%3Crect width='128' height='160' fill='%234F46E5'/%3E%3Ccircle cx='64' cy='50' r='20' fill='white' opacity='0.8'/%3E%3Cpath d='M44 100 Q64 85 84 100 L84 130 L44 130 Z' fill='white' opacity='0.8'/%3E%3C/svg%3E" alt="Profile" class="w-full h-full object-cover">
+                            <div class="w-32 h-40 bg-primary-800 rounded-lg overflow-hidden relative">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='160' viewBox='0 0 128 160'%3E%3Crect width='128' height='160' fill='%231e3a8a'/%3E%3Ccircle cx='64' cy='50' r='20' fill='white' opacity='0.8'/%3E%3Cpath d='M44 100 Q64 85 84 100 L84 130 L44 130 Z' fill='white' opacity='0.8'/%3E%3C/svg%3E" alt="Profile" class="w-full h-full object-cover">
                             </div>
                             <div class="text-center mt-2">
                                 <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Grade : A</span>
                             </div>
                         </div>
 
-                        <!-- Personal Info Display -->
+                        <!-- Personal Info -->
                         <div class="flex-1">
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-600 mb-1">ID</label>
@@ -53,7 +62,7 @@
                             
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-600 mb-1">Nama Lengkap</label>
-                                <div class="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-gray-800 font-medium">BUNGA AMALYA PUTRI PATRIA</div>
+                                <div class="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-gray-800 font-medium">Inukai Atsuhiro</div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -69,14 +78,14 @@
 
                             <div class="mt-4">
                                 <label class="block text-sm font-medium text-gray-600 mb-1">Status</label>
-                                <div class="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-gray-800">Udh nikah say</div>
+                                <div class="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-gray-800">Belum Menikah</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Detailed Information Card -->
-                <div class="gradient-bg rounded-lg p-6 text-white mb-6">
+                <!-- Detailed Information -->
+                <div class="bg-gradient-to-r from-primary-900 to-primary-800 rounded-lg p-6 text-white mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-3">
                             <div class="flex">
@@ -132,11 +141,11 @@
                 <!-- Work History and Skills -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <!-- Work History -->
-                    <div class="gradient-bg rounded-lg p-4">
+                    <div class="bg-gradient-to-r from-primary-900 to-primary-800 rounded-lg p-4">
                         <h3 class="text-white font-semibold mb-4 text-center">Riwayat Kerja</h3>
                         <div class="space-y-3">
                             <div class="flex items-center space-x-3">
-                                <div class="w-4 h-4 bg-orange-500 rounded-full flex-shrink-0"></div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full flex-shrink-0"></div>
                                 <div class="text-white text-sm">
                                     <div class="font-medium">PT. Terbang kesatas</div>
                                     <div class="text-white/80">Junior Security</div>
@@ -144,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="w-4 h-4 bg-orange-500 rounded-full flex-shrink-0"></div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full flex-shrink-0"></div>
                                 <div class="text-white text-sm">
                                     <div class="font-medium">PT. Terbang kesatas</div>
                                     <div class="text-white/80">Senior Security</div>
@@ -152,7 +161,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="w-4 h-4 bg-orange-500 rounded-full flex-shrink-0"></div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full flex-shrink-0"></div>
                                 <div class="text-white text-sm">
                                     <div class="font-medium">PT. Terbang kesatas</div>
                                     <div class="text-white/80">Security Supervisor</div>
@@ -163,25 +172,25 @@
                     </div>
 
                     <!-- Skills -->
-                    <div class="gradient-bg rounded-lg p-4">
+                    <div class="bg-gradient-to-r from-primary-900 to-primary-800 rounded-lg p-4">
                         <h3 class="text-white font-semibold mb-4 text-center">Keahlian</h3>
                         <div class="space-y-3">
                             <div class="flex items-center space-x-3">
-                                <div class="w-4 h-4 bg-orange-500 rounded-full flex-shrink-0"></div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full flex-shrink-0"></div>
                                 <div class="text-white text-sm">
                                     <div class="font-medium">Keahlian Teknis</div>
                                     <div class="text-white/80 text-xs">Berdiskusi tentang masalah perkembangan zaman terkait cyber, keamanan, hacker dll.</div>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="w-4 h-4 bg-orange-500 rounded-full flex-shrink-0"></div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full flex-shrink-0"></div>
                                 <div class="text-white text-sm">
                                     <div class="font-medium">Analisis Keamanan</div>
                                     <div class="text-white/80 text-xs">Menganalisis resiko keamanan pada area kantor dan gedung</div>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="w-4 h-4 bg-orange-500 rounded-full flex-shrink-0"></div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full flex-shrink-0"></div>
                                 <div class="text-white text-sm">
                                     <div class="font-medium">Operasional</div>
                                     <div class="text-white/80 text-xs">Mengoperasikan alat komunikasi, bela diri, surveillance.</div>
@@ -192,26 +201,26 @@
                 </div>
 
                 <!-- Certifications -->
-                <div class="gradient-bg rounded-lg p-4 mb-6">
+                <div class="bg-gradient-to-r from-primary-900 to-primary-800 rounded-lg p-4 mb-6">
                     <h3 class="text-white font-semibold mb-4 text-center">Sertifikasi</h3>
                     <div class="flex justify-between items-center">
                         <div class="text-white text-center flex-1">
-                            <div class="w-4 h-4 bg-orange-500 rounded-full mx-auto mb-1"></div>
+                            <div class="w-4 h-4 bg-orange-400 rounded-full mx-auto mb-1"></div>
                             <div class="text-xs">Garda Madya<br>2015</div>
                         </div>
-                        <div class="flex-1 h-0.5 bg-orange-500 mx-2"></div>
+                        <div class="flex-1 h-0.5 bg-orange-400 mx-2"></div>
                         <div class="text-white text-center flex-1">
-                            <div class="w-4 h-4 bg-orange-500 rounded-full mx-auto mb-1"></div>
+                            <div class="w-4 h-4 bg-orange-400 rounded-full mx-auto mb-1"></div>
                             <div class="text-xs">Security Basic<br>2018</div>
                         </div>
-                        <div class="flex-1 h-0.5 bg-orange-500 mx-2"></div>
+                        <div class="flex-1 h-0.5 bg-orange-400 mx-2"></div>
                         <div class="text-white text-center flex-1">
-                            <div class="w-4 h-4 bg-orange-500 rounded-full mx-auto mb-1"></div>
+                            <div class="w-4 h-4 bg-orange-400 rounded-full mx-auto mb-1"></div>
                             <div class="text-xs">First Aid<br>2020</div>
                         </div>
-                        <div class="flex-1 h-0.5 bg-orange-500 mx-2"></div>
+                        <div class="flex-1 h-0.5 bg-orange-400 mx-2"></div>
                         <div class="text-white text-center flex-1">
-                            <div class="w-4 h-4 bg-orange-500 rounded-full mx-auto mb-1"></div>
+                            <div class="w-4 h-4 bg-orange-400 rounded-full mx-auto mb-1"></div>
                             <div class="text-xs">Cyber Security<br>2023</div>
                         </div>
                     </div>
@@ -220,11 +229,11 @@
 
             <!-- Right Column - Work Data -->
             <div class="lg:col-span-1">
-                <div class="gradient-bg text-white px-6 py-4 rounded-t-lg">
+                <div class="bg-gradient-to-r from-primary-900 to-primary-800 text-white px-6 py-4 rounded-t-lg">
                     <h2 class="text-xl font-bold">DATA PEKERJAAN</h2>
                 </div>
                 
-                <div class="bg-white rounded-b-lg shadow-lg p-6 space-y-4">
+                <div class="bg-white rounded-b-lg shadow-md p-6 space-y-4 border border-gray-200 border-t-0">
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Status Karyawan</label>
                         <div class="px-3 py-2 bg-green-50 border border-green-200 rounded-md">
@@ -250,10 +259,10 @@
 
                 <!-- Portfolio Link -->
                 <div class="mt-6">
-                    <div class="gradient-bg text-white px-6 py-4 rounded-t-lg">
+                    <div class="bg-gradient-to-r from-primary-900 to-primary-800 text-white px-6 py-4 rounded-t-lg">
                         <h3 class="text-lg font-bold">Link Portofolio</h3>
                     </div>
-                    <div class="bg-white rounded-b-lg shadow-lg p-6">
+                    <div class="bg-white rounded-b-lg shadow-md p-6 border border-gray-200 border-t-0">
                         <div class="px-3 py-2 bg-blue-50 border border-blue-200 rounded-md">
                             <a href="https://portofolio-bunga-satpam-keren.vercel.app" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
                                 portofolio-bunga-satpam-keren.vercel.app
@@ -264,15 +273,15 @@
 
                 <!-- Action Buttons -->
                 <div class="flex justify-center mb-6 mt-8">
-                    <a href="tambahtugas.html" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                    <a href="tambahtugas.html" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md">
                         TAMBAH TUGAS
                     </a>
                 </div>
                 <div class="mt-6 flex space-x-4">
-                    <a href="editdata.html" class="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200" onclick="editData()">
+                    <a href="editdata.html" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md">
                         EDIT DATA
                     </a>
-                    <button class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200" onclick="printData()">
+                    <button class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md" onclick="printData()">
                         HAPUS DATA
                     </button>
                 </div>
@@ -283,8 +292,6 @@
     <script>
         function editData() {
             alert('Mengalihkan ke halaman edit data...');
-            // Di sini bisa ditambahkan redirect ke halaman edit
-            // window.location.href = 'edit-data.html';
         }
 
         function printData() {
@@ -293,8 +300,7 @@
 
         // Add hover effects
         document.addEventListener('DOMContentLoaded', function() {
-            // Add smooth transitions to all interactive elements
-            const buttons = document.querySelectorAll('button');
+            const buttons = document.querySelectorAll('button, a[href]');
             buttons.forEach(button => {
                 button.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-1px)';

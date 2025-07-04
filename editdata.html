@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Data Karyawan</title>
+    <title>Edit Data</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .gradient-bg {
@@ -270,12 +270,14 @@
 
                 <!-- Action Buttons -->
                 <div class="mt-6 flex space-x-4">
-                    <button class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
-                        EDIT DATA
+                    <button class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                        SIMPAN DATA
                     </button>
-                    <button class="flex-1 bg-red-800 hover:bg-red-900 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
-                        BATAL EDIT
-                    </button>
+<a href="lihatdata.html" class="flex-1">
+  <button class="flex-1 bg-red-800 hover:bg-red-900 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+    BATAL EDIT
+  </button>
+</a>
                 </div>
             </div>
         </div>
@@ -285,12 +287,12 @@
         // Add interactive functionality
         document.addEventListener('DOMContentLoaded', function() {
             // Add event listeners for form validation and dynamic content
-            const editButton = document.querySelector('button:contains("EDIT DATA")');
+            const saveButton = document.querySelector('button:contains("SIMPAN DATA")');
             const cancelButton = document.querySelector('button:contains("BATAL EDIT")');
             
             // Add functionality to buttons
             document.querySelectorAll('button').forEach(button => {
-                if (button.textContent.includes('EDIT DATA')) {
+                if (button.textContent.includes('SIMPAN DATA')) {
                     button.addEventListener('click', function() {
                         alert('Data akan disimpan!');
                     });
